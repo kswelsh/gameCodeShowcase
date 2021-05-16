@@ -36,9 +36,9 @@ public:
 	// post: _health is set to passed in int
 	void setHealthBase(int);
 
-	// pre: 1st parm is text you want to display
+	// pre: 1st parm is text you want to display, 2nd parm is true if you want spacing to be doubled on display
 	// post: displays text passed in
-	void displayEnemyText(const string&);
+	void displayEnemyText(const string&, bool);
 
 	// pre: 1st parm is type of damage, 2nd parm is amount of damage
 	//		type defined as either: "slash" (Armor) : "pierce" (Piercing Resitance) : "magic" (Magic Resitance)

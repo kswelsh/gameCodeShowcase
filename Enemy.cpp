@@ -21,8 +21,10 @@ GreaterGoblin::GreaterGoblin()
 
 // METHODS
 // Base Class
-void Enemy::displayEnemyText(const string& text)
+void Enemy::displayEnemyText(const string& text, bool displaySizeDouble)
 {
+	if (displaySizeDouble)
+		cout << "\n\n\n\n\n\n\n";
 	cout << "\n\n\n\n\n\n\n";
 
 	int centerCount;
@@ -53,6 +55,8 @@ void Enemy::displayEnemyText(const string& text)
 		Sleep(500);
 	}
 
+	if (displaySizeDouble)
+		cout << "\n\n\n\n\n\n\n";
 	cout << "\n\n\n\n\n\n\n";
 }
 
@@ -65,34 +69,34 @@ bool Enemy::takeDamage(string type, int amount)
 	{
 		percentage = percentage - _armor;
 		amount = amount * percentage;
-		displayEnemyText("You deal " + to_string(amount) + " slashing damage to the " + _name + "!");
+		displayEnemyText("You deal " + to_string(amount) + " slashing damage to the " + _name + "!", false);
 	}
 	else if (type == "pierce")
 	{
 		percentage = percentage - _piercingResitance;
 		amount = amount * percentage;
-		displayEnemyText("You deal " + to_string(amount) + " piercing damage to the " + _name + "!");
+		displayEnemyText("You deal " + to_string(amount) + " piercing damage to the " + _name + "!", false);
 	}
 	else if (type == "magic")
 	{
 		percentage = percentage - _magicResitance;
 		amount = amount * percentage;
-		displayEnemyText("You deal " + to_string(amount) + " magic damage to the " + _name + "!");
+		displayEnemyText("You deal " + to_string(amount) + " magic damage to the " + _name + "!", false);
 	}
 	else
 	{
-		displayEnemyText("You deal " + to_string(amount) + type + " damage to the " + _name + "!");
+		displayEnemyText("You deal " + to_string(amount) + type + " damage to the " + _name + "!", false);
 	}
 	system("CLS");
 
 	_health = _health - amount;
 	if (_health > 0)
 	{
-		displayEnemyText("The " + _name + " still lives!");
+		displayEnemyText("The " + _name + " still lives!", true);
 	}
 	else
 	{
-		displayEnemyText("The " + _name + " was defeated!");
+		displayEnemyText("The " + _name + " was defeated!", true);
 		defeated = true;
 	}
 
@@ -143,33 +147,33 @@ int LesserGoblin::attack()
 	// punch
 	if (randomAttack == 1)
 	{
-		displayEnemyText("The Lesser Goblin punches you in the face!");
+		displayEnemyText("The Lesser Goblin punches you in the face!", false);
 		system("CLS");
-		displayEnemyText("You take 1 damage.");
+		displayEnemyText("You take 1 damage.", true);
 		return 1;
 	}
 	// dagger
 	else if (randomAttack == 2)
 	{
-		displayEnemyText("The Lesser Goblin stabs you in the arm!");
+		displayEnemyText("The Lesser Goblin stabs you in the arm!", false);
 		system("CLS");
-		displayEnemyText("You take 2 damage.");
+		displayEnemyText("You take 2 damage.", true);
 		return 2;
 	}
 	// bite
 	else if (randomAttack == 3)
 	{
-		displayEnemyText("The Lesser Goblin bites your face!");
+		displayEnemyText("The Lesser Goblin bites your face!", false);
 		system("CLS");
-		displayEnemyText("You take 1 damage.");
+		displayEnemyText("You take 1 damage.", true);
 		return 1;
 	}
 	// miss
 	else
 	{
-		displayEnemyText("The Lesser Goblin attempts to bite you but misses!");
+		displayEnemyText("The Lesser Goblin attempts to bite you but misses!", false);
 		system("CLS");
-		displayEnemyText("You take 0 damage.");
+		displayEnemyText("You take 0 damage.", true);
 		return 0;
 	}
 	
