@@ -8,6 +8,9 @@
 #include <conio.h>
 using namespace std;
 
+// CLASS DISPLAY IS IN CHARGE OF AREA DISPLAY AND
+// TEXT DISPLAY, ANY OTHER TYPE OF DISPLAY IS
+// HANDLED BY CORRESPONDING OBJECTS
 class Display
 {
 private:

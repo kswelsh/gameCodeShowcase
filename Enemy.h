@@ -6,6 +6,9 @@
 #include <Windows.h>
 using namespace std;
 
+// CLASS ENEMY IS IN CHARGE OF COMBAT/COMBAT DISPLAY
+// CHANGES TO ANY VARS UNRELATED TO ENEMY ARE DONE
+// THROUGH RETURNING VALUES
 class Enemy
 {
 private:
@@ -54,7 +57,7 @@ class LesserGoblin : public Enemy
 public:
 	LesserGoblin();
 	virtual ~LesserGoblin() {};
-	int attack();
+	virtual int attack();
 };
 
 class Goblin : public Enemy

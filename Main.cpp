@@ -29,6 +29,15 @@ int main()
     string seed = "";
     Display display;
     LesserGoblin enemy;
+    Player player;
+    BasicSword* basicSword = new BasicSword;
+    BasicBow* basicBow = new BasicBow();
+    BasicWand* basicWand = new BasicWand();
+    player.addItem(basicSword);
+    player.addItem(basicBow);
+    player.addItem(basicWand);
+
+    player.displayAttackChoices();
 
     seed = display.displayForestChunk(seed, 7);
     display.displayText("A Lesser Goblin approaches you!");

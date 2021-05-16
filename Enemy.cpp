@@ -39,21 +39,14 @@ void Enemy::displayEnemyText(const string& text, bool displaySizeDouble)
 		center[i] = ' ';
 	}
 
-	// checking max length
-	if (text.size() > 70)
-		error = true;
-
 	// printing text in unique fashion
-	if (!error)
+	cout << center;
+	for (int i = 0; i < text.size(); i++)
 	{
-		cout << center;
-		for (int i = 0; i < text.size(); i++)
-		{
-			cout << text[i];
-			Sleep(50);
-		}
-		Sleep(500);
+		cout << text[i];
+		Sleep(50);
 	}
+	Sleep(500);
 
 	if (displaySizeDouble)
 		cout << "\n\n\n\n\n\n\n";
