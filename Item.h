@@ -22,7 +22,7 @@ class BasicSword : public Item
 public:
 	BasicSword();
 	virtual ~BasicSword() {};
-	void use();
+	virtual void use();
 };
 
 class BasicBow : public Item
@@ -30,7 +30,7 @@ class BasicBow : public Item
 public:
 	BasicBow();
 	virtual ~BasicBow() {};
-	void use();
+	virtual void use();
 };
 
 class BasicWand : public Item
@@ -38,7 +38,7 @@ class BasicWand : public Item
 public:
 	BasicWand();
 	virtual ~BasicWand() {};
-	void use();
+	virtual void use();
 };
 
 #endif

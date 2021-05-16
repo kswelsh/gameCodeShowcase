@@ -26,9 +26,21 @@ int main()
 {
     gameSetup();
 
-    Landscape landscape;
-    landscape.displayDesertChunk();
+    Landscape display;
+    LesserGoblin enemy;
+    display.displayText("You are approached by a Lesser Goblin!");
     refreshConsole();
-    string n = landscape.displayTextWithChoice("hey", "Did you want to do that?");
+    display.displayTextWithChoice("Would you like to attempt to fight it?", "Click 'Y' for YES or 'N' for NO");
     refreshConsole();
+    enemy.takeDamage("slash", 1);
+    refreshConsole();
+    enemy.attack();
+    refreshConsole();
+    enemy.takeDamage("slash", 2);
+    refreshConsole();
+    display.displayText("You arrive at a nearby forest!");
+    refreshConsole();
+    display.displayForestChunk();
+    refreshConsole();
+    display.displayTextWithChoice("Would you like to rest for a bit?", "Click 'Y' for YES or 'N' for NO");
 }

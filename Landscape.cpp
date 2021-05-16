@@ -29,7 +29,7 @@ bool Landscape::displayTimedText(const string& usedText, const bool &wantToCente
 		for (int i = 0; i < usedText.size(); i++)
 		{
 			cout << usedText[i];
-			Sleep(100);
+			Sleep(75);
 		}
 		Sleep(1000);
 	}

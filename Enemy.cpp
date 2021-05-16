@@ -3,7 +3,7 @@
 // PRIVATE METHODS
 
 // CONSTRUCTORS
-Enemy::Enemy(string n, int d, int hp, int mr, int ar, int pr)
+Enemy::Enemy(string n, int d, int hp, double mr, double ar, double pr)
 	:_name(n), _difficulty(d), _health(hp), _magicResitance(mr), _armor(ar), _piercingResitance(pr)
 	{}
 
@@ -12,15 +12,93 @@ LesserGoblin::LesserGoblin()
 	{}
 
 Goblin::Goblin()
-	: Enemy("Goblin", 1, 5, 0, 1, 0)
+	: Enemy("Goblin", 1, 5, 0, 0.20, 0)
 	{}
 
 GreaterGoblin::GreaterGoblin()
-	: Enemy("Greater Goblin", 2, 6, 1, 2, 1)
+	: Enemy("Greater Goblin", 2, 6, 0.20, 0.30, 0.20)
 	{}
 
 // METHODS
 // Base Class
+void Enemy::displayEnemyText(const string& text)
+{
+	cout << "\n\n\n\n\n\n\n";
+
+	int centerCount;
+	string center = "";
+	bool error = false;
+
+	// calculations for centering the text
+	centerCount = (35 - (text.size() / 2));
+	center.resize(centerCount);
+	for (int i = 0; i < center.size(); i++)
+	{
+		center[i] = ' ';
+	}
+
+	// checking max length
+	if (text.size() > 70)
+		error = true;
+
+	// printing text in unique fashion
+	if (!error)
+	{
+		cout << center;
+		for (int i = 0; i < text.size(); i++)
+		{
+			cout << text[i];
+			Sleep(50);
+		}
+		Sleep(500);
+	}
+
+	cout << "\n\n\n\n\n\n\n";
+}
+
+bool Enemy::takeDamage(string type, int amount)
+{
+	double percentage = 1.00;
+	bool defeated = false;
+
+	if (type == "slash")
+	{
+		percentage = percentage - _armor;
+		amount = amount * percentage;
+		displayEnemyText("You deal " + to_string(amount) + " slashing damage to the " + _name + "!");
+	}
+	else if (type == "pierce")
+	{
+		percentage = percentage - _piercingResitance;
+		amount = amount * percentage;
+		displayEnemyText("You deal " + to_string(amount) + " piercing damage to the " + _name + "!");
+	}
+	else if (type == "magic")
+	{
+		percentage = percentage - _magicResitance;
+		amount = amount * percentage;
+		displayEnemyText("You deal " + to_string(amount) + " magic damage to the " + _name + "!");
+	}
+	else
+	{
+		displayEnemyText("You deal " + to_string(amount) + type + " damage to the " + _name + "!");
+	}
+	system("CLS");
+
+	_health = _health - amount;
+	if (_health > 0)
+	{
+		displayEnemyText("The " + _name + " still lives!");
+	}
+	else
+	{
+		displayEnemyText("The " + _name + " was defeated!");
+		defeated = true;
+	}
+
+	return defeated;
+}
+
 string Enemy::getEnemyNameBase() const
 {
 	return _name;
@@ -57,49 +135,57 @@ void Enemy::setHealthBase(int newHealth)
 }
 
 // Lesser Goblin
-void LesserGoblin::attack()
+int LesserGoblin::attack()
 {
+	int randomAttack;
+	randomAttack = rand() % 4 + 1;
 
-}
-
-void LesserGoblin::takeDamage()
-{
-
-}
-
-int LesserGoblin::getDifficulty() const
-{
-	return this->getDifficultyBase();
+	// punch
+	if (randomAttack == 1)
+	{
+		displayEnemyText("The Lesser Goblin punches you in the face!");
+		system("CLS");
+		displayEnemyText("You take 1 damage.");
+		return 1;
+	}
+	// dagger
+	else if (randomAttack == 2)
+	{
+		displayEnemyText("The Lesser Goblin stabs you in the arm!");
+		system("CLS");
+		displayEnemyText("You take 2 damage.");
+		return 2;
+	}
+	// bite
+	else if (randomAttack == 3)
+	{
+		displayEnemyText("The Lesser Goblin bites your face!");
+		system("CLS");
+		displayEnemyText("You take 1 damage.");
+		return 1;
+	}
+	// miss
+	else
+	{
+		displayEnemyText("The Lesser Goblin attempts to bite you but misses!");
+		system("CLS");
+		displayEnemyText("You take 0 damage.");
+		return 0;
+	}
+	
 }
 
 // Goblin
-void Goblin::attack()
+int Goblin::attack()
 {
-
-}
-
-void Goblin::takeDamage()
-{
-
-}
-
-int Goblin::getDifficulty() const
-{
-	return this->getDifficultyBase();
+	int hold = 0;
+	return hold;
 }
 
 // GreaterGoblin
-void GreaterGoblin::attack()
+int GreaterGoblin::attack()
 {
-
+	int hold = 0;
+	return hold;
 }
 
-void GreaterGoblin::takeDamage()
-{
-
-}
-
-int GreaterGoblin::getDifficulty() const
-{
-	return this->getDifficultyBase();
-}
