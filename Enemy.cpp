@@ -62,23 +62,23 @@ bool Enemy::takeDamage(string type, int amount)
 	{
 		percentage = percentage - _armor;
 		amount = amount * percentage;
-		displayEnemyText("You deal " + to_string(amount) + " slashing damage to the " + _name + "!", false);
+		displayEnemyText("You deal " + to_string(amount) + " slashing damage!", false);
 	}
 	else if (type == "pierce")
 	{
 		percentage = percentage - _piercingResitance;
 		amount = amount * percentage;
-		displayEnemyText("You deal " + to_string(amount) + " piercing damage to the " + _name + "!", false);
+		displayEnemyText("You deal " + to_string(amount) + " piercing damage!", false);
 	}
 	else if (type == "magic")
 	{
 		percentage = percentage - _magicResitance;
 		amount = amount * percentage;
-		displayEnemyText("You deal " + to_string(amount) + " magic damage to the " + _name + "!", false);
+		displayEnemyText("You deal " + to_string(amount) + " magic damage!", false);
 	}
 	else
 	{
-		displayEnemyText("You deal " + to_string(amount) + type + " damage to the " + _name + "!", false);
+		displayEnemyText("You deal " + to_string(amount) + type + " damage!", false);
 	}
 	system("CLS");
 
@@ -96,37 +96,37 @@ bool Enemy::takeDamage(string type, int amount)
 	return defeated;
 }
 
-string Enemy::getEnemyNameBase() const
+string Enemy::getEnemyName() const
 {
 	return _name;
 }
 
-int Enemy::getDifficultyBase() const
+int Enemy::getDifficulty() const
 {
 	return _difficulty;
 }
 
-int Enemy::getHealthBase() const
+int Enemy::getHealth() const
 {
 	return _health;
 }
 
-int Enemy::getMagicResitanceBase() const
+int Enemy::getMagicResitance() const
 {
 	return _magicResitance;
 }
 
-int Enemy::getArmorBase() const
+int Enemy::getArmor() const
 {
 	return _armor;
 }
 
-int Enemy::getPiercingResitanceBase() const
+int Enemy::getPiercingResitance() const
 {
 	return _piercingResitance;
 }
 
-void Enemy::setHealthBase(int newHealth)
+void Enemy::setHealth(int newHealth)
 {
 	_health = newHealth;
 }

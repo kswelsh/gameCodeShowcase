@@ -28,16 +28,16 @@ public:
 	// post: displays attack done and damage done, returns damage amount
 	virtual int attack() = 0;
 
-	string getEnemyNameBase() const;
-	int getDifficultyBase() const;
-	int getHealthBase() const;
-	int getMagicResitanceBase() const;
-	int getArmorBase() const;
-	int getPiercingResitanceBase() const;
+	string getEnemyName() const;
+	int getDifficulty() const;
+	int getHealth() const;
+	int getMagicResitance() const;
+	int getArmor() const;
+	int getPiercingResitance() const;
 
 	// pre: 1st parm is num _health will be set to
 	// post: _health is set to passed in int
-	void setHealthBase(int);
+	void setHealth(int);
 
 	// pre: 1st parm is text you want to display, 2nd parm is true if you want spacing to be doubled on display
 	// post: displays text passed in

@@ -27,13 +27,13 @@ private:
 
 	// pre: 1st parm is vector of attack choices that one wants to print
 	// post: contents of vector are displayed
-	void displayAttackChoicesPrint(const vector<string>&);
+	void displayAttackChoicesPrint(const vector<string>&) const;
 public:
 	Player();
 
 	// pre: 1st parm is text one would like to display
 	// post: text is displayed in a unique fashion
-	void displayText(string);
+	void displayText(string) const;
 
 	// pre:
 	// post:
@@ -41,8 +41,8 @@ public:
 
 	// pre: none
 	// post: attack choices are displayed and user can decide what attack to use
-	//		 returns damage amount
-	void displayAttackChoices();
+	//		 returns _ delimited damage type, damage amount, and flavor text (in order)
+	string handleAttack() const;
 
 	// pre: 1st parm is pointer to item one would like to add to vector of items a player holds
 	// post: item pointer is added to vector

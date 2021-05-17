@@ -1,7 +1,7 @@
 #include "Player.h"
 
 // PRIVATE METHODS
-void Player::displayAttackChoicesPrint(const vector<string> &attackList)
+void Player::displayAttackChoicesPrint(const vector<string> &attackList) const
 {
 	int verticleLength;
 	int centerCount;
@@ -34,7 +34,7 @@ Player::Player()
 	{}
 
 // METHODS
-void Player::displayText(string text)
+void Player::displayText(string text) const
 {
 	int centerCount;
 	string center = "";
@@ -62,12 +62,13 @@ void Player::displayInventory()
 }
 
 
-void Player::displayAttackChoices()
+string Player::handleAttack() const
 {
 	bool canAttack = false;
 	vector<string> attackList;
 	int cursorIndex = 0;
 	string input;
+	string returnValue;
 
 	// checks what items can attack
 	for (int i = 0; i < _items.size(); i++)
@@ -75,7 +76,7 @@ void Player::displayAttackChoices()
 		canAttack = _items[i]->getIfCanAttack();
 		if (canAttack)
 		{
-			attackList.push_back(_items[i]->getItemNameBase());
+			attackList.push_back(_items[i]->getItemName());
 		}
 	}
 	system("CLS");
@@ -84,6 +85,13 @@ void Player::displayAttackChoices()
 	if (attackList.size() <= 0)
 	{
 		attackList.push_back("Punch -");
+		while (input != "e")
+		{
+			input = "";
+			input = _getch();
+		}
+		returnValue = "slash_0_Your weak punch misses the ";
+		return returnValue;
 	}
 	else
 	{
@@ -135,9 +143,9 @@ void Player::displayAttackChoices()
 			attackList[cursorIndex].pop_back();
 			for (int i = 0; i < _items.size(); i++)
 			{
-				if (attackList[cursorIndex] == _items[i]->getItemNameBase())
+				if (attackList[cursorIndex] == _items[i]->getItemName())
 				{
-					_items[i]->attack();
+					returnValue = _items[i]->attack();
 				}
 			}
 		}
@@ -146,6 +154,7 @@ void Player::displayAttackChoices()
 			displayAttackChoicesPrint(attackList);
 		}
 	}
+	return returnValue;
 }
 
 void Player::addItem(Item* item)
