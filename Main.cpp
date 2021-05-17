@@ -54,9 +54,8 @@ void handlePlayerAttack(const string &a, int &v, string &t, string &f, Enemy &e)
         i++;
     }
     v = stoi(hold);
-    
     i++;
-    while (a[i] != '_')
+    while (i < a.size())
     {
         f.push_back(a[i]);
         i++;

@@ -82,52 +82,52 @@ string Sword::attack()
 	if (attackNum == 1)
 	{
 		attackDamage = "_1_";
-		attackText = "Your " + getItemName() + " grazes the _";
+		attackText = "Your " + getItemName() + " grazes the ";
 	}
 	else if (attackNum == 2)
 	{
 		attackDamage = "_2_";
-		attackText = "Your " + getItemName() + " slits the _";
+		attackText = "Your " + getItemName() + " slits the ";
 	}
 	else if (attackNum == 3)
 	{
 		attackDamage = "_3_";
-		attackText = "Your " + getItemName() + " slices the _";
+		attackText = "Your " + getItemName() + " slices the ";
 	}
 	else if (attackNum == 4)
 	{
 		attackDamage = "_4_";
-		attackText = "Your " + getItemName() + " cuts through the _";
+		attackText = "Your " + getItemName() + " cuts through the ";
 	}
 	else if (attackNum == 5)
 	{
 		attackDamage = "_5_";
-		attackText = "Your " + getItemName() + " impales the _";
+		attackText = "Your " + getItemName() + " impales the ";
 	}
 	else if (attackNum == 6)
 	{
 		attackDamage = "_6_";
-		attackText = "Your " + getItemName() + " rips through the _";
+		attackText = "Your " + getItemName() + " rips through the ";
 	}
 	else if (attackNum == 7)
 	{
 		attackDamage = "_7_";
-		attackText = "Your " + getItemName() + " heavily damages the _";
+		attackText = "Your " + getItemName() + " heavily damages the ";
 	}
 	else if (attackNum == 8)
 	{
 		attackDamage = "_8_";
-		attackText = "Your " + getItemName() + " chops down the _";
+		attackText = "Your " + getItemName() + " chops down the ";
 	}
 	else if (attackNum == 9)
 	{
 		attackDamage = "_9_";
-		attackText = "Your " + getItemName() + " utterly destroys the _";
+		attackText = "Your " + getItemName() + " utterly destroys the ";
 	}
 	else
 	{
 		attackDamage = "_10_";
-		attackText = "Your " + getItemName() + " obliterates the _";
+		attackText = "Your " + getItemName() + " obliterates the ";
 	}
 
 	// appending to one return value
@@ -163,9 +163,9 @@ string Bow::attack()
 		miss = true;
 		attackDamage = "_0_";
 		if (attackMiss == 1)
-			attackText = "Your aim proves to be faulty! You miss the _";
+			attackText = "Your aim proves to be faulty! You miss the ";
 		else
-			attackText = "You completely miss the _";
+			attackText = "You completely miss the ";
 	}
 
 	// creating attack text
@@ -177,76 +177,76 @@ string Bow::attack()
 		{
 			attackDamage = "_1_";
 			if (randomFlavorText == 1)
-				attackText = "Your arrow nearly misses the _";
+				attackText = "Your arrow nearly misses the ";
 			else if (randomFlavorText == 2)
 				attackText = "You nearly miss the _";
 			else
-				attackText = "Your arrow almost misses the _";
+				attackText = "Your arrow almost misses the ";
 		}
 		else if (attackNum == 2)
 		{
 			attackDamage = "_3_";
 			if (randomFlavorText == 1)
-				attackText = "Your arrow somewhat hits the _";
+				attackText = "Your arrow somewhat hits the ";
 			else 
-				attackText = "Your arrow kind of hits the _";
+				attackText = "Your arrow kind of hits the ";
 		}
 		else if (attackNum == 3)
 		{
 			attackDamage = "_3_";
 			if (randomFlavorText == 1)
-				attackText = "The arrow from your " + getItemName() + " infirmly hits the _";
+				attackText = "The arrow from your " + getItemName() + " infirmly hits the ";
 			else
-				attackText = "The arrow from your " + getItemName() + " weakly hits the _";
+				attackText = "The arrow from your " + getItemName() + " weakly hits the ";
 		}
 		else if (attackNum == 4)
 		{
 			attackDamage = "_6_";
 			if (randomFlavorText == 1)
-				attackText = "Your arrow damages the _";
+				attackText = "Your arrow damages the ";
 			else
-				attackText = "Your arrow pierces the _";
+				attackText = "Your arrow pierces the ";
 		}
 		else if (attackNum == 5)
 		{
 			attackDamage = "_6_";
-			attackText = "Your arrow lodges in the _";
+			attackText = "Your arrow lodges in the ";
 		}
 		else if (attackNum == 6)
 		{
 			attackDamage = "_9_";
-			attackText = "Your arrow almost goes straight through the _";
+			attackText = "Your arrow almost goes straight through the ";
 		}
 		else if (attackNum == 7)
 		{
 			attackDamage = "_9_";
 			if (randomFlavorText == 1)
-				attackText = "The arrow from your " + getItemName() + " strongly damages the _";
+				attackText = "The arrow from your " + getItemName() + " strongly damages the ";
 			else
-				attackText = "The arrow from your " + getItemName() + " heavily damages the _";
+				attackText = "The arrow from your " + getItemName() + " heavily damages the ";
 		}
 		else if (attackNum == 8)
 		{
 			attackDamage = "_11_";
-			attackText = "Your arrow sets ablaze mid-air, inflaming the _";
+			attackText = "Your arrow sets ablaze mid-air, inflaming the ";
 		}
 		else if (attackNum == 9)
 		{
 			attackDamage = "_11_";
 			if (randomFlavorText == 1)
-				attackText = "Your arrow fires twice as fast and utterly annihilates the _";
+				attackText = "Your arrow fires twice as fast and utterly annihilates the ";
 			else
-				attackText = "Your arrow extirpates the _";
+				attackText = "Your arrow extirpates the ";
 		}
 		else
 		{
 			attackDamage = "_13_";
 			if (randomFlavorText == 1)
-				attackText = "Your " + getItemName() + " fires 5 arrows, obliterating the _";
-			else if (randomFlavorText = 2)
-				attackText = "Your " + getItemName() + " seaks your target, eradicating the _";
+				attackText = "Your " + getItemName() + " fires 5 arrows, obliterating the ";
+			else if (randomFlavorText == 2)
+				attackText = "Your " + getItemName() + " seaks your target, eradicating the ";
 			else 
-				attackText = "Your " + getItemName() + " rapidly fires , liquidating the _";
+				attackText = "Your " + getItemName() + " rapidly fires , liquidating the ";
 		}
 	}
 
