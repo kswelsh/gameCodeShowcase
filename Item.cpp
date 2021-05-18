@@ -3,20 +3,20 @@
 // PRIVATE METHODS
 
 // CONSTRUCTORS
-Item::Item(string n, bool u, bool a, int d, int p)
-	:_name(n), _canUse(u), _canAttack(a), _durability(d), _power(p)
+Item::Item(string n, bool u, bool a, int d, int p, string i)
+	:_name(n), _canUse(u), _canAttack(a), _durability(d), _power(p), _info(i)
 	{}
 
 Sword::Sword()
-	: Item("Basic Sword", false, true, -1, 1)
+	: Item("Basic Sword", false, true, -1, 1, "Just a basic sword")
 	{}
 
 Bow::Bow()
-	: Item("Basic Bow", false, true, -1, 10)
+	: Item("Basic Bow", false, true, -1, 10, "Just a basic bow")
 	{}
 
 Wand::Wand()
-	: Item("Basic Wand", false, true, -1, 1)
+	: Item("Basic Wand", false, true, -1, 1, "Just a basic wand")
 	{}
 
 // METHODS
@@ -24,6 +24,11 @@ Wand::Wand()
 string Item::getItemName() const
 {
 	return _name;
+}
+
+string Item::getInfo() const
+{
+	return _info;
 }
 
 bool Item::getIfUsable() const

@@ -85,6 +85,8 @@ int main()
     player.addItem(basicBow);
     player.addItem(basicWand);
 
+    player.displayInventory();
+
 
     seed = display.displayForestChunk(seed, 7);
     display.displayText("A Lesser Goblin approaches you!");

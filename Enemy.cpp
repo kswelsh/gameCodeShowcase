@@ -78,7 +78,7 @@ bool Enemy::takeDamage(string type, int amount)
 	}
 	else
 	{
-		displayEnemyText("You deal " + to_string(amount) + type + " damage!", false);
+		displayEnemyText("You deal " + to_string(amount) + " " + type + " damage!", false);
 	}
 	system("CLS");
 

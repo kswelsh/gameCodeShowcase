@@ -10,6 +10,7 @@ class Item
 private:
 	string _name;
 	int _durability;
+	string _info;
 
 	// if item can be used as an attack or use effect item
 	bool _canUse;
@@ -22,7 +23,7 @@ public:
 	// pre: 1st parm is item name, 2nd parm is if item can be "used"
 	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
 	// post: item is created
-	Item(string, bool, bool, int, int);
+	Item(string, bool, bool, int, int, string);
 	virtual ~Item() {};
 
 	// pre: item must be usable
@@ -34,6 +35,7 @@ public:
 	virtual string attack();
 
 	string getItemName() const;
+	string getInfo() const;
 	bool getIfUsable() const;
 	bool getIfCanAttack() const;
 	int getPower() const;

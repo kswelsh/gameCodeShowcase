@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <conio.h>
+#include <Windows.h>
 using namespace std;
 #include "Item.h"
 
@@ -27,13 +28,15 @@ private:
 
 	// pre: 1st parm is vector of attack choices that one wants to print
 	// post: contents of vector are displayed
-	void displayAttackChoicesPrint(const vector<string>&) const;
+	void displayChoicesPrint(const vector<string>&, const string&) const;
+
+	// pre: 1st parm is text one would like to display, 2nd parm is true if want variation, false if not
+	// post: text is displayed in a unique fashion
+	void displayText(string, bool) const;
 public:
 	Player();
 
-	// pre: 1st parm is text one would like to display
-	// post: text is displayed in a unique fashion
-	void displayText(string) const;
+
 
 	// pre:
 	// post:
