@@ -6,6 +6,7 @@
 #include <vector>
 #include <conio.h>
 #include <Windows.h>
+#include <sstream>
 using namespace std;
 #include "Item.h"
 
@@ -33,6 +34,10 @@ private:
 	// pre: 1st parm is text one would like to display, 2nd parm is true if want variation, false if not
 	// post: text is displayed in a unique fashion
 	void displayText(string, bool) const;
+
+	// pre: 1st parm is description of item, 2nd parm is item name
+	// post: info is printed
+	void parseAndPrintInfo(string&, string);
 public:
 	Player();
 

@@ -10,6 +10,8 @@ class Item
 private:
 	string _name;
 	int _durability;
+
+	// info must be in format "description_rarity_damagePossible_healingPossible_lore"
 	string _info;
 
 	// if item can be used as an attack or use effect item
@@ -22,6 +24,7 @@ private:
 public:
 	// pre: 1st parm is item name, 2nd parm is if item can be "used"
 	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
+	//		5th parm is _info
 	// post: item is created
 	Item(string, bool, bool, int, int, string);
 	virtual ~Item() {};
@@ -34,8 +37,8 @@ public:
 	// post: corresponding attack effect happens
 	virtual string attack();
 
-	string getItemName() const;
 	string getInfo() const;
+	string getItemName() const;
 	bool getIfUsable() const;
 	bool getIfCanAttack() const;
 	int getPower() const;
@@ -54,7 +57,11 @@ public:
 class Sword : public Item
 {
 public:
-	Sword();
+	// pre: 1st parm is item name, 2nd parm is if item can be "used"
+	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
+	//		5th parm is _info
+	// post: item is created
+	Sword(string, bool, bool, int, int, string);
 	virtual ~Sword() {};
 	virtual string attack();
 };
@@ -62,7 +69,11 @@ public:
 class Bow : public Item
 {
 public:
-	Bow();
+	// pre: 1st parm is item name, 2nd parm is if item can be "used"
+	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
+	//		5th parm is _info
+	// post: item is created
+	Bow(string, bool, bool, int, int, string);
 	virtual ~Bow() {};
 	virtual string attack();
 };
@@ -70,7 +81,11 @@ public:
 class Wand : public Item
 {
 public:
-	Wand();
+	// pre: 1st parm is item name, 2nd parm is if item can be "used"
+	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
+	//		5th parm is _info
+	// post: item is created
+	Wand(string, bool, bool, int, int, string);
 	virtual ~Wand() {};
 	virtual string attack();
 };

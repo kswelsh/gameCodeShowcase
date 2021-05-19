@@ -1,5 +1,6 @@
 #include <iostream>
 #include <Windows.h>
+#include <sstream>
 using namespace std;
 #include "Player.h"
 #include "Map.h"
@@ -31,9 +32,8 @@ void gameSetup()
 //      3rd parm is attackType var, 4th parm is attackText flavortext
 //      5th parm is enemy one is fighting (for flavor text)
 // post: attack value, type, and text are set to correct values
-void handlePlayerAttack(const string &a, int &v, string &t, string &f, Enemy &e)
+void handlePlayerAttack(string &a, int &v, string &t, string &f, Enemy &e)
 {
-    int i = 0;
     string hold;
 
     // clear vars
@@ -41,25 +41,16 @@ void handlePlayerAttack(const string &a, int &v, string &t, string &f, Enemy &e)
     t.clear();
     f.clear();
 
-    // split and append
-    while (a[i] != '_')
-    {
-        t.push_back(a[i]);
-        i++;
-    }
-    i++;
-    while (a[i] != '_')
-    {
-        hold.push_back(a[i]);
-        i++;
-    }
-    v = stoi(hold);
-    i++;
-    while (i < a.size())
-    {
-        f.push_back(a[i]);
-        i++;
-    }
+    // split
+    vector<string> parsed;
+    stringstream ss(a);
+    while (getline(ss, hold, '_'))
+        parsed.push_back(hold);
+
+    // change vars
+    t = parsed[0];
+    v = stoi(parsed[1]);
+    f = parsed[2];
     f.append(e.getEnemyName() + "!");
 }
 
@@ -78,9 +69,12 @@ int main()
     LesserGoblin enemy;
     Player player;
     
-    Sword* basicSword = new Sword();
-    Bow* basicBow = new Bow();
-    Wand* basicWand = new Wand();
+    Sword* basicSword = new Sword("Basic Sword", false, true, -1, 2, "Just a Basic Sword._Common_1-2" \
+        "_Non-Healing_Said to be the strongest sword in the land, by beginners...");
+    Bow* basicBow = new Bow("Basic Bow", false, true, -1, 3, "Just a Basic Bow._Common_0-3" \
+        "_Non-Healing_Your aim must be good.");
+    Wand* basicWand = new Wand("Basic Wand", false, true, -1, 5, "Just a Basic Wand._Common_5-7" \
+        "_Non-Healing_Chances are you don't know how to use it.");
     player.addItem(basicSword);
     player.addItem(basicBow);
     player.addItem(basicWand);

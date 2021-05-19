@@ -16,7 +16,7 @@ void Player::displayChoicesPrint(const vector<string> &displayList, const string
 	// display list
 	displayText(headerText, false);
 	cout << "\n";
-	displayText("------------------------", false);
+	displayText("________________________", false);
 	cout << "\n\n";
 	for (int i = 0; i < displayList.size(); i++)
 	{
@@ -61,8 +61,24 @@ void Player::displayText(string text, bool variation) const
 	{
 		cout << text;
 	}
+}
 
-	
+void Player::parseAndPrintInfo(string& a, string n)
+{
+	// parse info
+	string hold;
+	vector<string> parsed;
+	stringstream ss(a);
+	while (getline(ss, hold, '_'))
+		parsed.push_back(hold);
+
+	// set text in front
+	parsed[1].insert(0, "Rarity: ");
+	parsed[2].insert(0, "Damage: ");
+	parsed[3].insert(0, "Healing: ");
+
+	system("CLS");
+	displayChoicesPrint(parsed, n);
 }
 
 // CONSTRUCTORS
@@ -155,7 +171,8 @@ void Player::displayInventory()
 		// info on item
 		else if (input == "i")
 		{
-			displayText(_items[cursorIndex]->getInfo(), true);
+			string info = _items[cursorIndex]->getInfo();
+			parseAndPrintInfo(info, _items[cursorIndex]->getItemName());
 			while (input != "q")
 			{
 				input = _getch();

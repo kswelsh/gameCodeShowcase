@@ -7,16 +7,16 @@ Item::Item(string n, bool u, bool a, int d, int p, string i)
 	:_name(n), _canUse(u), _canAttack(a), _durability(d), _power(p), _info(i)
 	{}
 
-Sword::Sword()
-	: Item("Basic Sword", false, true, -1, 1, "Just a basic sword")
+Sword::Sword(string n, bool u, bool a, int d, int p, string i)
+	: Item(n, u, a, d, p, i)
 	{}
 
-Bow::Bow()
-	: Item("Basic Bow", false, true, -1, 10, "Just a basic bow")
+Bow::Bow(string n, bool u, bool a, int d, int p, string i)
+	: Item(n, u, a, d, p, i)
 	{}
 
-Wand::Wand()
-	: Item("Basic Wand", false, true, -1, 1, "Just a basic wand")
+Wand::Wand(string n, bool u, bool a, int d, int p, string i)
+	: Item(n, u, a, d, p, i)
 	{}
 
 // METHODS
@@ -251,7 +251,7 @@ string Bow::attack()
 			else if (randomFlavorText == 2)
 				attackText = "Your " + getItemName() + " seaks your target, eradicating the ";
 			else 
-				attackText = "Your " + getItemName() + " rapidly fires , liquidating the ";
+				attackText = "Your " + getItemName() + " rapidly fires, liquidating the ";
 		}
 	}
 

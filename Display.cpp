@@ -29,9 +29,9 @@ bool Display::displayTimedText(const string& usedText, const bool &wantToCenter)
 		for (int i = 0; i < usedText.size(); i++)
 		{
 			cout << usedText[i];
-			Sleep(75);
+			Sleep(45);
 		}
-		Sleep(1000);
+		Sleep(900);
 	}
 	return error;
 }
@@ -60,7 +60,6 @@ void Display::displayText(const string &text)
 {
 	cout << "\n\n\n\n\n\n\n";
 	displayTimedText(text, true);
-	cout << "\n\n\n\n\n\n\n";
 }
 
 string Display::displayForestChunk(string seed, int sizeOfDisplay)

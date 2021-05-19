@@ -44,13 +44,9 @@ void Enemy::displayEnemyText(const string& text, bool displaySizeDouble)
 	for (int i = 0; i < text.size(); i++)
 	{
 		cout << text[i];
-		Sleep(50);
+		Sleep(35);
 	}
-	Sleep(500);
-
-	if (displaySizeDouble)
-		cout << "\n\n\n\n\n\n\n";
-	cout << "\n\n\n\n\n\n\n";
+	Sleep(700);
 }
 
 bool Enemy::takeDamage(string type, int amount)
