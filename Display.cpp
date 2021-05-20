@@ -196,6 +196,120 @@ string Display::displayForestChunk(string seed, int sizeOfDisplay)
 
 string Display::displayOceanChunk(string seed, int sizeOfDisplay)
 {
+	const int size = 15;
+	string* ocean[size];
+	int chunkSelect;
+	bool newSeed = false;
+	string hold;
+
+	if (seed.length() != sizeOfDisplay)
+	{
+		seed = "";
+	}
+	if (seed == "")
+	{
+		newSeed = true;
+	}
+
+	for (int i = 0; i < size; i++)
+	{
+		ocean[i] = new string("");
+	}
+
+	for (int j = 1; j < sizeOfDisplay; j++)
+	{
+		if (newSeed)
+		{
+			chunkSelect = rand() % 6;
+			seed.append(to_string(chunkSelect));
+		}
+		else
+		{
+			hold = "";
+			hold += seed[j];
+			chunkSelect = stoi(hold);
+		}
+
+		if (chunkSelect == 0)
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				ocean[i]->append("          ");
+			}
+			ocean[14]->append("~~~~~~~~~~");
+		}
+		else if (chunkSelect == 1)
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				ocean[i]->append("          ");
+			}
+			ocean[14]->append("~^~~~^~~~~");
+		}
+		else if (chunkSelect == 2)
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				ocean[i]->append("          ");
+			}
+			ocean[10]->append("    ~.    ");
+			ocean[11]->append("    /|    ");
+			ocean[12]->append("   /_|_   ");
+			ocean[13]->append(" \\------/ ");
+			ocean[14]->append("~~~~~~~~~~");
+		}
+		else if (chunkSelect == 3)
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				ocean[i]->append("          ");
+			}
+			ocean[14]->append("~^~^~^~^~^");
+		}
+		else if (chunkSelect == 4)
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				ocean[i]->append("          ");
+			}
+			ocean[14]->append("^~^~^~^~^~");
+		}
+		else
+		{
+			for (int i = 0; i < 14; i++)
+			{
+				ocean[i]->append("          ");
+			}
+			ocean[14]->append("~^~~~^~~^~");
+		}
+	}
+
+	// all have sun chunk
+	ocean[0]->append("          ");
+	ocean[1]->append("    \\|/   ");
+	ocean[2]->append("   **O**  ");
+	ocean[3]->append("    /|\\   ");
+	for (int i = 4; i < 14; i++)
+	{
+		ocean[i]->append("          ");
+	}
+	ocean[14]->append("~~~~~~~~~~");
+	seed.append("0");
+
+	for (int i = 0; i < size; i++)
+	{
+		if (i == 14)
+			cout << *(ocean[i]);
+		else
+			cout << *(ocean[i]) << endl;
+	}
+	cout << "----------------------------------------------------------------------\n";
+
+	for (int i = 0; i < size; i++)
+	{
+		delete ocean[i];
+	}
+
 	return seed;
 }
 

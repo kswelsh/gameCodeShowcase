@@ -81,6 +81,9 @@ int main()
 
     player.displayInventory();
 
+    seed = display.displayOceanChunk(seed, 7);
+    refreshConsole();
+
 
     seed = display.displayForestChunk(seed, 7);
     display.displayText("A Lesser Goblin approaches you!");

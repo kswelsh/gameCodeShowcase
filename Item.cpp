@@ -266,6 +266,134 @@ string Bow::attack()
 // Basic Wand
 string Wand::attack()
 {
-	string hold;
-	return hold;
+	int attackNum;
+	int attackMin;
+	int attackFocus;
+	int randomFlavorText;
+	bool focus = false;
+	string returnValue;
+	string attackText;
+	string attackDamage;
+
+	// calculate attack, min being 1/4 attack power
+	attackMin = getPower() / 4;
+	attackNum = rand() % getPower() + 1;
+	if (attackNum < attackMin)
+		attackNum = attackMin;
+
+	// chance to lose focus with wands
+	attackFocus = rand() % 10 + 1;
+	if (attackFocus == 1 || attackFocus == 2 || attackFocus == 3 || attackFocus == 10)
+	{
+		focus = true;
+		if (attackFocus == 1)
+		{
+			attackDamage = "_0_";
+			attackText = "You complete lose focus! You miss the ";
+		}
+		else if (attackFocus == 2)
+		{
+			attackDamage = "_0_";
+			attackText = "You get distracted and miss the ";
+		}
+		else if (attackFocus == 3)
+		{
+			attackDamage = "_1_";
+			attackText = "You get somewhat distracted! You almost miss the ";
+		}
+		else
+		{
+			attackDamage = "_5_";
+			attackText = "Your focus is completely in tune, casting fear upon the  ";
+		}
+	}
+
+	// creating attack text
+	string attackType = "magic";
+	randomFlavorText = rand() % 3 + 1;
+	if (!focus)
+	{
+		if (attackNum == 1)
+		{
+			attackDamage = "_2_";
+			if (randomFlavorText == 1)
+				attackText = "Your " + getItemName() + " shoots a fireball at the ";
+			else if (randomFlavorText == 2)
+				attackText = "Your " + getItemName() + " shoots ice at the ";
+			else
+				attackText = "Your " + getItemName() + " shoots electricity at the ";
+		}
+		else if (attackNum == 2)
+		{
+			attackDamage = "_3_";
+			if (randomFlavorText == 1)
+				attackText = "You cast flame on the ";
+			else
+				attackText = "You cast freeze on the ";
+		}
+		else if (attackNum == 3)
+		{
+			attackDamage = "_5_";
+			if (randomFlavorText == 1)
+				attackText = "Your " + getItemName() + " sprays molten lava at the ";
+			else
+				attackText = "Your " + getItemName() + " sprays frozen rocks at the ";
+		}
+		else if (attackNum == 4)
+		{
+			attackDamage = "_6_";
+			if (randomFlavorText == 1)
+				attackText = "You cast fire storm on the ";
+			else
+				attackText = "You cast ice storm on the ";
+		}
+		else if (attackNum == 5)
+		{
+			attackDamage = "_8_";
+			attackText = "You cast seering burn on the ";
+		}
+		else if (attackNum == 6)
+		{
+			attackDamage = "_9_";
+			attackText = "Your " + getItemName() + " inflicts a sharp pain on the ";
+		}
+		else if (attackNum == 7)
+		{
+			attackDamage = "_11_";
+			if (randomFlavorText == 1)
+				attackText = "Your " + getItemName() + " fires shattered earth at the ";
+			else
+				attackText = "Your " + getItemName() + " fires magic missles at the ";
+		}
+		else if (attackNum == 8)
+		{
+			attackDamage = "_12_";
+			attackText = "You cast unforgiving death on the ";
+		}
+		else if (attackNum == 9)
+		{
+			attackDamage = "_14_";
+			if (randomFlavorText == 1)
+				attackText = "You cast earthshatter on the ";
+			else
+				attackText = "You cast demolish on the ";
+		}
+		else
+		{
+			attackDamage = "_15_";
+			if (randomFlavorText == 1)
+				attackText = "Your " + getItemName() + " fires death missles, obliterating the ";
+			else if (randomFlavorText == 2)
+				attackText = "You cast demoralize on the ";
+			else
+				attackText = "Your " + getItemName() + " takes over control, obliterating the ";
+		}
+	}
+
+	// appending to one return value
+	returnValue.append(attackType);
+	returnValue.append(attackDamage);
+	returnValue.append(attackText);
+
+	return returnValue;
 }
