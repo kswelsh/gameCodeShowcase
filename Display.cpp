@@ -1,14 +1,18 @@
 #include "Display.h"
 // PRIVATE METHODS
 
-bool Display::displayTimedText(const string& usedText, const bool &wantToCenter)
+void Display::displayTimedText(const string& usedText, const bool &wantToCenter, int finalSleep)
 {
 	int centerCount;
 	string center = "";
 	bool error = false;
 
+	// checking max length
+	if (usedText.size() > 70)
+		error = true;
+
 	// calculations for centering the text
-	if (wantToCenter)
+	if (wantToCenter && !error)
 	{ 
 		centerCount = (35 - (usedText.size() / 2));
 		center.resize(centerCount);
@@ -17,10 +21,6 @@ bool Display::displayTimedText(const string& usedText, const bool &wantToCenter)
 			center[i] = ' ';
 		}
 	}
-
-	// checking max length
-	if (usedText.size() > 70)
-		error = true;
 
 	// printing text in unique fashion
 	if (!error)
@@ -31,9 +31,8 @@ bool Display::displayTimedText(const string& usedText, const bool &wantToCenter)
 			cout << usedText[i];
 			Sleep(45);
 		}
-		Sleep(900);
+		Sleep(finalSleep);
 	}
-	return error;
 }
 
 // CONSTRUCTORS
@@ -47,10 +46,10 @@ string Display::displayTextWithChoice(const string &text, const string &question
 	string choice;
 
 	cout << "\n\n\n\n\n\n";
-	displayTimedText(text, true);
+	displayTimedText(text, true, 900);
 	cout << "\n\n\n\n\n\n";
 	cout << "______________________________________________________________________\n\n";
-	displayTimedText(question, true);
+	displayTimedText(question, true, 900);
 	choice = _getch();
 
 	return choice;
@@ -58,8 +57,49 @@ string Display::displayTextWithChoice(const string &text, const string &question
 
 void Display::displayText(const string &text)
 {
-	cout << "\n\n\n\n\n\n\n";
-	displayTimedText(text, true);
+	if (text.size() <= 70)
+	{
+		cout << "\n\n\n\n\n\n\n";
+		displayTimedText(text, true, 900);
+	}
+	else if (text.size() <= 140)
+	{
+		string newText1;
+		string newText2;
+		string hold;
+		bool space = false;
+
+		for (int i = 0; i < text.size(); i++)
+		{
+			if (i <= 55)
+			{
+				hold = text[i];
+				newText1.append(hold);
+			}
+			else if (i > 55)
+			{
+				if (text[i] == ' ')
+				{
+					space = true;
+				}
+					
+				if (space == true)
+				{
+					hold = text[i];
+					newText2.append(hold); 
+				}
+				else
+				{
+					hold = text[i];
+					newText1.append(hold);
+				}
+			}
+		}
+		cout << "\n\n\n\n\n\n";
+		displayTimedText(newText1, true, 0);
+		cout << "\n";
+		displayTimedText(newText2, true, 1000);
+	}
 }
 
 string Display::displayForestChunk(string seed, int sizeOfDisplay)

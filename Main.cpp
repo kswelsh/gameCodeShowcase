@@ -66,10 +66,15 @@ int main()
     string seed = "";
 
     Display display;
-    LesserGoblin enemy;
     Player player;
+
+    Enemy enemy("Lesser Goblin", 1, 3, 0.00, 0.00, 0.00);
+    enemy.addAttack("The Lesser Goblin punches you in the face!", 1);
+    enemy.addAttack("The Lesser Goblin stabs you in the arm!", 2);
+    enemy.addAttack("The Lesser Goblin bites your face!", 1);
+    enemy.addAttack("The Lesser Goblin attempts to bite you but misses!", 0);
     
-    Sword* basicSword = new Sword("Basic Sword", false, true, -1, 2, "Just a Basic Sword._Common_1-2" \
+    Sword* basicSword = new Sword("Basic Sword", false, true, -1, 10, "Just a Basic Sword._Common_1-2" \
         "_Non-Healing_Said to be the strongest sword in the land, by beginners...");
     Bow* basicBow = new Bow("Basic Bow", false, true, -1, 3, "Just a Basic Bow._Common_0-3" \
         "_Non-Healing_Your aim must be good.");
@@ -84,9 +89,8 @@ int main()
     seed = display.displayOceanChunk(seed, 7);
     refreshConsole();
 
-
     seed = display.displayForestChunk(seed, 7);
-    display.displayText("A Lesser Goblin approaches you!");
+    display.displayText("A Lesser Goblin approaches you! A Lesser Goblin approaches you! A Lesser Goblin approaches you!");
     refreshConsole();
     
     // current attack code for player

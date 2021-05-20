@@ -16,9 +16,9 @@ class Display
 private:
 	int _zone;
 
-	// pre: 1st parm is text you want to display, must not be greater than 70 characters
-	// post: passed in parm is displayed in timed fashion, if greater than 70 chatacters, returns true
-	bool displayTimedText(const string&, const bool&);
+	// pre: 1st parm is text you want to display, must not be greater than 140 characters
+	// post: passed in parm is displayed in timed fashion, if greater than 140 chatacters does not display
+	void displayTimedText(const string&, const bool&, int);
 public:
 	Display();
 

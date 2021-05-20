@@ -4,24 +4,12 @@
 
 // CONSTRUCTORS
 Enemy::Enemy(string n, int d, int hp, double mr, double ar, double pr)
-	:_name(n), _difficulty(d), _health(hp), _magicResitance(mr), _armor(ar), _piercingResitance(pr)
-	{}
-
-LesserGoblin::LesserGoblin()
-	: Enemy("Lesser Goblin", 0, 3, 0, 0, 0)
-	{}
-
-Goblin::Goblin()
-	: Enemy("Goblin", 1, 5, 0, 0.20, 0)
-	{}
-
-GreaterGoblin::GreaterGoblin()
-	: Enemy("Greater Goblin", 2, 6, 0.20, 0.30, 0.20)
+	:_name(n), _difficulty(d), _health(hp), _magicResitance(mr), _armor(ar), _piercingResitance(pr), _maxAttacks(0)
 	{}
 
 // METHODS
 // Base Class
-void Enemy::displayEnemyText(const string& text, bool displaySizeDouble)
+void Enemy::displayEnemyText(const string& text, bool displaySizeDouble) const
 {
 	if (displaySizeDouble)
 		cout << "\n\n\n\n\n\n\n";
@@ -127,58 +115,34 @@ void Enemy::setHealth(int newHealth)
 	_health = newHealth;
 }
 
-// Lesser Goblin
-int LesserGoblin::attack()
+int Enemy::attack() const
 {
 	int randomAttack;
-	randomAttack = rand() % 4 + 1;
+	string flavorText;
+	string damageText;
+	string hold;
+	randomAttack = rand() % _maxAttacks;
 
-	// punch
-	if (randomAttack == 1)
-	{
-		displayEnemyText("The Lesser Goblin punches you in the face!", false);
-		system("CLS");
-		displayEnemyText("You take 1 damage.", true);
-		return 1;
-	}
-	// dagger
-	else if (randomAttack == 2)
-	{
-		displayEnemyText("The Lesser Goblin stabs you in the arm!", false);
-		system("CLS");
-		displayEnemyText("You take 2 damage.", true);
-		return 2;
-	}
-	// bite
-	else if (randomAttack == 3)
-	{
-		displayEnemyText("The Lesser Goblin bites your face!", false);
-		system("CLS");
-		displayEnemyText("You take 1 damage.", true);
-		return 1;
-	}
-	// miss
-	else
-	{
-		displayEnemyText("The Lesser Goblin attempts to bite you but misses!", false);
-		system("CLS");
-		displayEnemyText("You take 0 damage.", true);
-		return 0;
-	}
-	
+	flavorText = _attackText[randomAttack];
+	hold = to_string(_damage[randomAttack]);
+	damageText = "You take " + hold + " damage.";
+
+	displayEnemyText(flavorText, false);
+	system("CLS");
+	displayEnemyText(damageText, true);
+
+	return _damage[randomAttack];
 }
 
-// Goblin
-int Goblin::attack()
+void Enemy::addAttack(string flavorText, int damage)
 {
-	int hold = 0;
-	return hold;
-}
-
-// GreaterGoblin
-int GreaterGoblin::attack()
-{
-	int hold = 0;
-	return hold;
+	_damage.push_back(damage);
+	_attackText.push_back(flavorText);
+	_maxAttacks++;
+	if (_maxAttacks > 10)
+	{
+		cout << "ERROR: ATTACK WONT EVER BE USED, ATTACKS ARE FULL" << endl;
+		_maxAttacks == 10;
+	}
 }
 
