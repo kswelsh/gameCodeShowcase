@@ -7,6 +7,7 @@ using namespace std;
 #include "Display.h"
 #include "Enemy.h"
 
+#pragma comment(lib, "winmm.lib")
 
 // pre: none
 // post: console is refreshed and set back to required size
@@ -74,7 +75,7 @@ int main()
     enemy.addAttack("The Lesser Goblin bites your face!", 1);
     enemy.addAttack("The Lesser Goblin attempts to bite you but misses!", 0);
     
-    Sword* basicSword = new Sword("Basic Sword", false, true, -1, 10, "Just a Basic Sword._Common_1-2" \
+    Sword* basicSword = new Sword("Basic Sword", false, true, -1, 1, "Just a Basic Sword._Common_1-2" \
         "_Non-Healing_Said to be the strongest sword in the land, by beginners...");
     Bow* basicBow = new Bow("Basic Bow", false, true, -1, 3, "Just a Basic Bow._Common_0-3" \
         "_Non-Healing_Your aim must be good.");
@@ -89,13 +90,17 @@ int main()
     player.addItem(lovePoem);
     player.addItem(lesserHealthPotion);
 
+    PlaySound(TEXT("darkSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+   
     player.displayInventory();
+
+    PlaySound(TEXT("forestSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 
     seed = display.displayOceanChunk(seed, 7);
     refreshConsole();
 
     seed = display.displayForestChunk(seed, 7);
-    display.displayText("A Lesser Goblin approaches you! A Lesser Goblin approaches you! A Lesser Goblin approaches you!");
+    display.displayText("A Lesser Goblin approaches you!");
     refreshConsole();
     
 
