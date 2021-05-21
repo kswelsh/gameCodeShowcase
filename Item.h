@@ -34,7 +34,7 @@ public:
 	virtual string use();
 
 	// pre: item must be able to attack
-	// post: corresponding attack effect happens
+	// post: returns "damageType_damageAmount_flavorText"
 	virtual string attack();
 
 	string getInfo() const;
@@ -47,7 +47,7 @@ public:
 	// post: item durability is subtracted by one
 	//		 if _durability == 0, returns true, otherwise, returns false
 	//		 items with _canAttack parm set to true will not be deincremented
-	bool checkAndDecDestory();
+	bool checkAndDecDur();
 };
 
 // WEAPON ITEMS
@@ -88,6 +88,30 @@ public:
 	Wand(string, bool, bool, int, int, string);
 	virtual ~Wand() {};
 	virtual string attack();
+};
+
+class Book : public Item
+{
+public:
+	// pre: 1st parm is item name, 2nd parm is if item can be "used"
+	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
+	//		5th parm is _info
+	// post: item is created
+	Book(string, bool, bool, int, int, string);
+	virtual ~Book() {};
+	virtual string use();
+};
+
+class HealthPotion : public Item
+{
+public:
+	// pre: 1st parm is item name, 2nd parm is if item can be "used"
+	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
+	//		5th parm is _info
+	// post: item is created
+	HealthPotion(string, bool, bool, int, int, string);
+	virtual ~HealthPotion() {};
+	virtual string use();
 };
 
 #endif

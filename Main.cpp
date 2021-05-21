@@ -80,9 +80,14 @@ int main()
         "_Non-Healing_Your aim must be good.");
     Wand* basicWand = new Wand("Basic Wand", false, true, -1, 5, "Just a Basic Wand._Common_5-7" \
         "_Non-Healing_Chances are you don't know how to use it.");
+    HealthPotion* lesserHealthPotion = new HealthPotion("Lesser Health Potion", true, false, 1, 1, "Just a Lesser Health Potion._Common_Non-Damaging_" \
+        "1_Really doesn't do all too much.");
+    Book* lovePoem = new Book("Love Poem", true, false, 1, 1, "Just a love poem._Common_Non-Damaging_1_I love you.");
     player.addItem(basicSword);
     player.addItem(basicBow);
     player.addItem(basicWand);
+    player.addItem(lovePoem);
+    player.addItem(lesserHealthPotion);
 
     player.displayInventory();
 
@@ -93,6 +98,7 @@ int main()
     display.displayText("A Lesser Goblin approaches you! A Lesser Goblin approaches you! A Lesser Goblin approaches you!");
     refreshConsole();
     
+
     // current attack code for player
     playerAttack = player.handleAttack();
     handlePlayerAttack(playerAttack, attackValue, attackType, attackText, enemy);

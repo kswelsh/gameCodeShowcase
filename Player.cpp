@@ -63,7 +63,7 @@ void Player::displayText(string text, bool variation) const
 	}
 }
 
-void Player::parseAndPrintInfo(string& a, string n)
+void Player::parseAndPrintInfo(string& a, string n) const
 {
 	// parse info
 	string hold;
@@ -81,24 +81,52 @@ void Player::parseAndPrintInfo(string& a, string n)
 	displayChoicesPrint(parsed, n);
 }
 
-// CONSTRUCTORS
-Player::Player()
-	:_maxHealth(10), _health(10), _love(0), _name("")
-	{}
-
-// METHODS
-void Player::displayInventory()
+void Player::parseAndChangeUse(string info, string& t, string& a) const
 {
-	bool value = 0;
-	vector<string> inventory;
-	int cursorIndex = 0;
-	string input;
-	string headerText = "Inventory";
-	string info;
-	bool empty = false;
+	string hold;
+	stringstream ss(info);
+	vector<string> parsed;
 
-	// 0 for attack, 1 for use
-	vector<int> useOrAttack;
+	while (getline(ss, hold, '_'))
+		parsed.push_back(hold);
+
+	t = parsed[0];
+	a = parsed[1];
+}
+
+void Player::addLove(int a)
+{
+	_love = _love + a;
+	system("CLS");
+	displayText("Your love went up by " + to_string(a) + " and is now " + to_string(_love) + "!", true);
+	Sleep(1200);
+}
+
+void Player::addHealth(int a)
+{
+	_health = _health + a;
+	if (_health > _maxHealth)
+	{
+		_health = _maxHealth;
+		system("CLS");
+		displayText("After healing your health went above the max!", true);
+		Sleep(900);
+		system("CLS");
+		displayText("Nevertheless, you healed " + to_string(a) + " and now have " + to_string(_health) + " health!", true);
+	}
+	else
+	{
+		system("CLS");
+		displayText("Your heal" + to_string(a) + " and now have " + to_string(_health) + " health!", true);
+	}
+	Sleep(1200);
+}
+
+void Player::seperate(bool &value, vector<string> &inventory, vector<int> &useOrAttack, bool &empty, int &cursorIndex)
+{
+	value = false;
+	inventory.clear();
+	useOrAttack.clear();
 
 	// adds all items to vector, seperating by attack or use through parallel vector
 	for (int i = 0; i < _items.size(); i++)
@@ -117,14 +145,35 @@ void Player::displayInventory()
 		}
 		inventory.push_back(_items[i]->getItemName());
 	}
-	system("CLS");
 
 	// checks if inventory is empty
 	if (inventory.size() == 0)
 		empty = true;
 	else
-		inventory[0].append(" -");
+		inventory[cursorIndex].append(" -");
+}
 
+// CONSTRUCTORS
+Player::Player()
+	:_maxHealth(10), _health(10), _love(0), _name("")
+	{}
+
+// METHODS
+void Player::displayInventory()
+{
+	bool value = false;
+	vector<string> inventory;
+	int cursorIndex = 0;
+	string input;
+	string headerText = "Inventory";
+	string info;
+	bool empty = false;
+
+	// 0 for attack, 1 for use
+	vector<int> useOrAttack;
+
+	seperate(value, inventory, useOrAttack, empty, cursorIndex);
+	system("CLS");
 	displayChoicesPrint(inventory, headerText);
 
 	// accept keyboard input to make choice
@@ -160,7 +209,25 @@ void Player::displayInventory()
 		{
 			if (useOrAttack[cursorIndex] == 1)
 			{
-				_items[cursorIndex]->use();
+				string use = _items[cursorIndex]->use();
+				string type;
+				string amount;
+
+				parseAndChangeUse(use, type, amount);
+				if (type == "love")
+					addLove(stoi(amount));
+				else if (type == "heal")
+					addHealth(stoi(amount));
+
+				bool destroy = _items[cursorIndex]->checkAndDecDur();
+				if (destroy)
+				{
+					delete _items[cursorIndex];
+					_items.erase(_items.begin() + cursorIndex);
+					if (cursorIndex > _items.size() - 1)
+						cursorIndex = _items.size() - 1;
+				}
+
 			}
 			else
 			{
@@ -179,6 +246,7 @@ void Player::displayInventory()
 			}
 			input = ".";
 		}
+		seperate(value, inventory, useOrAttack, empty, cursorIndex);
 		system("CLS");
 		displayChoicesPrint(inventory, headerText);
 	}

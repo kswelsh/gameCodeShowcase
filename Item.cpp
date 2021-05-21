@@ -19,6 +19,14 @@ Wand::Wand(string n, bool u, bool a, int d, int p, string i)
 	: Item(n, u, a, d, p, i)
 	{}
 
+HealthPotion::HealthPotion(string n, bool u, bool a, int d, int p, string i)
+	: Item(n, u, a, d, p, i)
+	{}
+
+Book::Book(string n, bool u, bool a, int d, int p, string i)
+	: Item(n, u, a, d, p, i)
+	{}
+
 // METHODS
 // Base Class
 string Item::getItemName() const
@@ -41,7 +49,7 @@ bool Item::getIfCanAttack() const
 	return _canAttack;
 }
 
-bool Item::checkAndDecDestory()
+bool Item::checkAndDecDur()
 {
 	if (!_canAttack)
 	{
@@ -67,7 +75,7 @@ string Item::attack()
 	return "Item cannot be used in an attack!";
 }
 
-// Basic Sword
+// Sword
 string Sword::attack()
 {
 	int attackNum;
@@ -143,7 +151,7 @@ string Sword::attack()
 	return returnValue;
 }
 
-// Basic Bow
+// Bow
 string Bow::attack()
 {
 	int attackNum;
@@ -263,7 +271,7 @@ string Bow::attack()
 	return returnValue;
 }
 
-// Basic Wand
+// Wand
 string Wand::attack()
 {
 	int attackNum;
@@ -396,4 +404,16 @@ string Wand::attack()
 	returnValue.append(attackText);
 
 	return returnValue;
+}
+
+// Book
+string Book::use()
+{
+	return ("love_" + to_string(getPower()));
+}
+
+// Health Potion
+string HealthPotion::use()
+{
+	return ("heal_" + to_string(getPower()));
 }

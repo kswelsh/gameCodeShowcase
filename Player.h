@@ -19,13 +19,13 @@ private:
 	string _name;
 	vector<Item*> _items;
 
-	// pre:
-	// post:
-	void useItem();
+	// pre: 1st parm is amount one wants added
+	// post: displays heal, _health changes accordingly
+	void addHealth(int);
 
-	// pre:
-	// post:
-	void useAttack();
+	// pre: 1st parm is amount one wants added
+	// post: displays love, _love changes accordingly
+	void addLove(int);
 
 	// pre: 1st parm is vector of attack choices that one wants to print
 	// post: contents of vector are displayed
@@ -37,14 +37,24 @@ private:
 
 	// pre: 1st parm is description of item, 2nd parm is item name
 	// post: info is printed
-	void parseAndPrintInfo(string&, string);
+	void parseAndPrintInfo(string&, string) const;
+
+	// pre: 1st parm is type_amount, 2nd parm is var one wants type stored, 3rd is var one wants amount stored
+	// post: 2nd and 3rd parm now hold parsed values
+	void parseAndChangeUse(string, string&, string&) const;
+
+	// pre: 1st parm is bool value to seperate, 2nd parm is inventory vector, 3rd parm is vector holding use/attack values
+	//		4th parm is value if inventory is empty
+	// post: vectors created correctly
+	void seperate(bool&, vector<string>&, vector<int>&, bool&, int&);
 public:
 	Player();
 
 
 
-	// pre:
-	// post:
+	// pre: none
+	// post: inventory is displayed with user choices and interface for user to make choices
+	//		 on what different items to use
 	void displayInventory();
 
 	// pre: none
