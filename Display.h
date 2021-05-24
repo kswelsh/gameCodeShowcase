@@ -14,13 +14,11 @@ using namespace std;
 class Display
 {
 private:
-	int _zone;
-
 	// pre: 1st parm is text you want to display, must not be greater than 140 characters
 	// post: passed in parm is displayed in timed fashion, if greater than 140 chatacters does not display
 	void displayTimedText(const string&, const bool&, int);
 public:
-	Display();
+	Display() {};
 
 	// pre: 1st parm is text you want to display, 2nd parm is text you want to display for choice
 	// post: displays text and asks for user input, user choice is returned

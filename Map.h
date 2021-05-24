@@ -3,6 +3,10 @@
 
 #include <iostream>
 #include <time.h>
+#include <vector>
+#include <string>
+#include <conio.h>
+#include <Windows.h>
 using namespace std;
 
 class Map
@@ -10,8 +14,13 @@ class Map
 private:
 	static const int _columnSize = 4;
 	static const int _rowSize = 4;
-	// Map size has basic size of 4, if changed, must change default constructor.
+	int _currentColumn;
+	int _currentRow;
 	string _map[_columnSize][_rowSize];
+	int _zone;
+	vector<int> _beenToColumn;
+	vector<int> _beenToRow;
+	
 
 	// pre: 1st parm is i variable in loop, 2nd parm is j variable in loop
 	// post: map is populated with random area strings
@@ -24,9 +33,14 @@ private:
 	// pre: setStart() must have already been called in current scope
 	// post: map is populated with a single area "end" that does not replace a "start" area
 	void setEnd();
+
+	void displayMap();
+
+	void displayText(string);
 public:
 	Map();
 	
+	bool move();
 };
 
 #endif

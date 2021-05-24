@@ -68,6 +68,7 @@ int main()
 
     Display display;
     Player player;
+    Map map1;
 
     Enemy enemy("Lesser Goblin", 1, 3, 0.00, 0.00, 0.00);
     enemy.addAttack("The Lesser Goblin punches you in the face!", 1);
@@ -90,20 +91,24 @@ int main()
     player.addItem(lovePoem);
     player.addItem(lesserHealthPotion);
 
+
     PlaySound(TEXT("darkSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
    
+    map1.move();
     player.displayInventory();
 
-    PlaySound(TEXT("forestSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
-
+    
     seed = display.displayOceanChunk(seed, 7);
     refreshConsole();
+
+    PlaySound(TEXT("forestSoundTrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 
     seed = display.displayForestChunk(seed, 7);
     display.displayText("A Lesser Goblin approaches you!");
     refreshConsole();
     
 
+   
     // current attack code for player
     playerAttack = player.handleAttack();
     handlePlayerAttack(playerAttack, attackValue, attackType, attackText, enemy);

@@ -35,11 +35,6 @@ void Display::displayTimedText(const string& usedText, const bool &wantToCenter,
 	}
 }
 
-// CONSTRUCTORS
-Display::Display() 
-	:_zone(0) 
-	{}
-
 // METHODS
 string Display::displayTextWithChoice(const string &text, const string &question)
 {
