@@ -47,9 +47,9 @@ void Map::displayText(string text)
 	for (int i = 0; i < text.size(); i++)
 	{
 		cout << text[i];
-		Sleep(35);
+		Sleep(10);
 	}
-	Sleep(700);
+	Sleep(100);
 }
 
 void Map::setStart()
@@ -103,33 +103,33 @@ void Map::displayMap()
 			explored = "o";
 
 		// replace array
-		if (_beenToRow[i] == 1)
+		if (_beenToRow[i] == 0)
 		{
-			if (_beenToColumn[i] == 1)
+			if (_beenToColumn[i] == 0)
 				where[0] = explored;
-			else if (_beenToColumn[i] == 2)
+			else if (_beenToColumn[i] == 1)
 				where[1] = explored;
 			else if (_beenToColumn[i] == 2)
 				where[2] = explored;
 			else
 				where[3] = explored;
 		}
-		else if (_beenToRow[i] == 2)
+		else if (_beenToRow[i] == 1)
 		{
-			if (_beenToColumn[i] == 1)
+			if (_beenToColumn[i] == 0)
 				where[4] = explored;
-			else if (_beenToColumn[i] == 2)
+			else if (_beenToColumn[i] == 1)
 				where[5] = explored;
 			else if (_beenToColumn[i] == 2)
 				where[6] = explored;
 			else
 				where[7] = explored;
 		}
-		else if (_beenToRow[i] == 3)
+		else if (_beenToRow[i] == 2)
 		{
-			if (_beenToColumn[i] == 1)
+			if (_beenToColumn[i] == 0)
 				where[8] = explored;
-			else if (_beenToColumn[i] == 2)
+			else if (_beenToColumn[i] == 1)
 				where[9] = explored;
 			else if (_beenToColumn[i] == 2)
 				where[10] = explored;
@@ -138,9 +138,9 @@ void Map::displayMap()
 		}
 		else
 		{
-			if (_beenToColumn[i] == 1)
+			if (_beenToColumn[i] == 0)
 				where[12] = explored;
-			else if (_beenToColumn[i] == 2)
+			else if (_beenToColumn[i] == 1)
 				where[13] = explored;
 			else if (_beenToColumn[i] == 2)
 				where[14] = explored;
@@ -192,44 +192,140 @@ Map::Map()
 }
 
 // METHODS
-
 bool Map::move()
 {
 	string userConfirm = "";
 	string userInput;
+	bool visited = false;
 
 	displayMap();
+
+	// accept user input to move
 	while (userConfirm != "e")
 	{
+		displayMap();
 		userInput = "";
 		userInput = _getch();
 		system("CLS");
 
-		// move down
+		
+		// move north
 		if (userInput == "w")
 		{
 			displayText("Press E to Confirm or any other Key to Cancel!");
 			userConfirm = _getch();
+			if (userConfirm == "e")
+			{
+				if ((_currentRow - 1) < 0)
+				{
+					displayText("Cannot move there! Position out of bounds!");
+					userConfirm = ".";
+				}
+				else
+				{
+					_currentRow--;
+				}
+			}
 		}
-		// move up
+		// move south
 		else if (userInput == "s")
 		{
 			displayText("Press E to Confirm or any other Key to Cancel!");
 			userConfirm = _getch();
+			if (userConfirm == "e")
+			{
+				if ((_currentRow + 1) >= 4)
+				{
+					displayText("Cannot move there! Position out of bounds!");
+					userConfirm = ".";
+				}
+				else
+				{
+					_currentRow++;
+				}
+			}
 		}
-		// use attack
+		// move east
 		else if (userInput == "d")
 		{
 			displayText("Press E to Confirm or any other Key to Cancel!");
 			userConfirm = _getch();
+			if (userConfirm == "e")
+			{
+				if ((_currentColumn + 1) >= 4)
+				{
+					displayText("Cannot move there! Position out of bounds!");
+					userConfirm = ".";
+				}
+				else
+				{
+					_currentColumn++;
+				}
+			}
 		}
+		// move west
 		else if (userInput == "a")
 		{
 			displayText("Press E to Confirm or any other Key to Cancel!");
 			userConfirm = _getch();
+			if (userConfirm == "e")
+			{
+				if ((_currentColumn - 1) < 0)
+				{
+					displayText("Cannot move there! Position out of bounds!");
+					userConfirm = ".";
+				}
+				else
+				{
+					_currentColumn--;
+				}
+			}
 		}
-		system("CLS");
-		displayMap();
+
+		// check if already visited and add new position
+		if (userConfirm == "e")
+		{
+			string holdRowPairPart;
+			string holdColumnPairPart;
+			string holdPairCurrent = "";
+			string holdPairExists;
+
+			holdPairCurrent.append(to_string(_currentRow));
+			holdPairCurrent.append(to_string(_currentColumn));
+			for (int i = 0; i < _beenToColumn.size(); i++)
+			{
+				holdPairExists = "";
+				holdRowPairPart = to_string(_beenToRow[i]);
+				holdColumnPairPart = to_string(_beenToColumn[i]);
+				holdPairExists.append(holdRowPairPart);
+				holdPairExists.append(holdColumnPairPart);
+
+				if (holdPairCurrent == holdPairExists)
+					visited = true;
+			}
+			_beenToColumn.push_back(_currentColumn);
+			_beenToRow.push_back(_currentRow);
+		}
 	}
-	return true;
+	return visited;
+}
+
+int Map::getCurrentRow() const
+{
+	return _currentRow;
+}
+
+int Map::getCurrentColumn() const
+{
+	return _currentColumn;
+}
+
+string Map::getZoneType(int c, int r) const
+{
+	return _map[c][r];
+}
+
+string Map::getZoneTypeCurrent() const
+{
+	return _map[_currentColumn][_currentRow];
 }

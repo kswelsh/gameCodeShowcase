@@ -59,23 +59,25 @@ int main()
 {
     gameSetup();
 
+    // initilization
     string playerAttack;
     int attackValue = 0;
     string attackType;
     string attackText;
-
+    bool visited = false;
     string seed = "";
-
     Display display;
     Player player;
     Map map1;
 
+    // enemy creation
     Enemy enemy("Lesser Goblin", 1, 3, 0.00, 0.00, 0.00);
     enemy.addAttack("The Lesser Goblin punches you in the face!", 1);
     enemy.addAttack("The Lesser Goblin stabs you in the arm!", 2);
     enemy.addAttack("The Lesser Goblin bites your face!", 1);
     enemy.addAttack("The Lesser Goblin attempts to bite you but misses!", 0);
     
+    // item creation
     Sword* basicSword = new Sword("Basic Sword", false, true, -1, 1, "Just a Basic Sword._Common_1-2" \
         "_Non-Healing_Said to be the strongest sword in the land, by beginners...");
     Bow* basicBow = new Bow("Basic Bow", false, true, -1, 3, "Just a Basic Bow._Common_0-3" \
@@ -91,24 +93,48 @@ int main()
     player.addItem(lovePoem);
     player.addItem(lesserHealthPotion);
 
-
+    // music and sound
     PlaySound(TEXT("darkSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
-   
-    map1.move();
+    
+    // current code for map movement
+    cout << map1.getZoneTypeCurrent() << endl;
+    system("pause");
+    visited = map1.move();
+    cout << visited;
+    cout << map1.getZoneTypeCurrent() << endl;
+    system("pause");
+    visited = map1.move();
+    cout << visited;
+    cout << map1.getZoneTypeCurrent() << endl;
+    system("pause");
+    visited = map1.move();
+    cout << visited;
+    cout << map1.getZoneTypeCurrent() << endl;
+    system("pause");
+    visited = map1.move();
+    cout << visited;
+    cout << map1.getZoneTypeCurrent() << endl;
+    system("pause");
+    visited = map1.move();
+    cout << visited;
+    cout << map1.getZoneTypeCurrent() << endl;
+    system("pause");
+
+    // current code for inventory
     player.displayInventory();
 
-    
+    // test display
     seed = display.displayOceanChunk(seed, 7);
     refreshConsole();
 
+    // music and sound
     PlaySound(TEXT("forestSoundTrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 
+    // current code for display with text
     seed = display.displayForestChunk(seed, 7);
     display.displayText("A Lesser Goblin approaches you!");
     refreshConsole();
     
-
-   
     // current attack code for player
     playerAttack = player.handleAttack();
     handlePlayerAttack(playerAttack, attackValue, attackType, attackText, enemy);
@@ -140,6 +166,7 @@ int main()
     display.displayText("You arrive at a new nearby desert!");
     refreshConsole();
 
+    // display question
     seed = display.displayDesertChunk(seed, 7);
     display.displayTextWithChoice("Would you like to rest for a bit?", "Click 'Y' for YES or 'N' for NO");
 }
