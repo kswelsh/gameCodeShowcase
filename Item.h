@@ -64,6 +64,8 @@ public:
 	Sword(string, bool, bool, int, int, string);
 	virtual ~Sword() {};
 	virtual string attack();
+
+	// Consistent weapon with max power of 10
 };
 
 class Bow : public Item
@@ -76,6 +78,8 @@ public:
 	Bow(string, bool, bool, int, int, string);
 	virtual ~Bow() {};
 	virtual string attack();
+
+	// Less consistent weapon with max power of 10, has chance to miss
 };
 
 class Wand : public Item
@@ -88,6 +92,22 @@ public:
 	Wand(string, bool, bool, int, int, string);
 	virtual ~Wand() {};
 	virtual string attack();
+
+	// High range of damage with max power of 10, has chance to miss and power up (focus)
+};
+
+class Dagger : public Item
+{
+public:
+	// pre: 1st parm is item name, 2nd parm is if item can be "used"
+	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
+	//		5th parm is _info
+	// post: item is created
+	Dagger(string, bool, bool, int, int, string);
+	virtual ~Dagger() {};
+	virtual string attack();
+
+	// Very consistent weapon with a max power of 5
 };
 
 class Book : public Item
@@ -100,6 +120,8 @@ public:
 	Book(string, bool, bool, int, int, string);
 	virtual ~Book() {};
 	virtual string use();
+
+	// Used to increase love
 };
 
 class HealthPotion : public Item
@@ -112,6 +134,8 @@ public:
 	HealthPotion(string, bool, bool, int, int, string);
 	virtual ~HealthPotion() {};
 	virtual string use();
+
+	// Used to heal
 };
 
 #endif

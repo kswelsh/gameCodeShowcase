@@ -7,6 +7,7 @@
 #include <Windows.h>
 #include <conio.h>
 using namespace std;
+#include "Item.h"
 
 // CLASS DISPLAY IS IN CHARGE OF AREA DISPLAY AND
 // TEXT DISPLAY, ANY OTHER TYPE OF DISPLAY IS

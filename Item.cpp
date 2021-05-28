@@ -27,6 +27,10 @@ Book::Book(string n, bool u, bool a, int d, int p, string i)
 	: Item(n, u, a, d, p, i)
 	{}
 
+Dagger::Dagger(string n, bool u, bool a, int d, int p, string i)
+	: Item(n, u, a, d, p, i)
+	{}
+
 // METHODS
 // Base Class
 string Item::getItemName() const
@@ -416,4 +420,68 @@ string Book::use()
 string HealthPotion::use()
 {
 	return ("heal_" + to_string(getPower()));
+}
+
+// Dagger
+string Dagger::attack()
+{
+	int attackNum;
+	int attackMin;
+	string returnValue;
+	string attackText;
+	string attackDamage;
+
+	// chance to reroll for greater attack
+	bool attackDoubleStrike;
+
+	// calculate attack, min being 1/2 attack power
+	attackMin = getPower() / 2;
+	attackNum = rand() % getPower() + 1;
+	if (attackNum < attackMin)
+		attackNum = attackMin;
+
+
+	attackDoubleStrike = rand() % 2;
+	if (attackDoubleStrike)
+	{
+		int hold = attackNum;
+		attackNum = rand() % getPower() + 1;
+		if (hold > attackNum)
+			attackNum = hold;
+	}
+
+	// creating attack text
+	string attackType = "slash";
+	if (attackNum == 1)
+	{
+		attackDamage = "_2_";
+		attackText = "Your " + getItemName() + " slits the ";
+	}
+	else if (attackNum == 2)
+	{
+		attackDamage = "_3_";
+		attackText = "Your " + getItemName() + " pierces the ";
+	}
+	else if (attackNum == 3)
+	{
+		attackDamage = "_4_";
+		attackText = "Your " + getItemName() + " impales the ";
+	}
+	else if (attackNum == 4)
+	{
+		attackDamage = "_5_";
+		attackText = "Your " + getItemName() + " cuts completely through the ";
+	}
+	else
+	{
+		attackDamage = "_6_";
+		attackText = "Your " + getItemName() + " lands deep inside the ";
+	}
+
+	// appending to one return value
+	returnValue.append(attackType);
+	returnValue.append(attackDamage);
+	returnValue.append(attackText);
+
+	return returnValue;
 }

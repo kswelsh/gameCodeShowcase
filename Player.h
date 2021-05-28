@@ -50,8 +50,6 @@ private:
 public:
 	Player();
 
-
-
 	// pre: none
 	// post: inventory is displayed with user choices and interface for user to make choices
 	//		 on what different items to use
