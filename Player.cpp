@@ -155,7 +155,7 @@ void Player::seperate(bool &value, vector<string> &inventory, vector<int> &useOr
 
 // CONSTRUCTORS
 Player::Player()
-	:_maxHealth(10), _health(10), _love(0), _name("")
+	:_maxHealth(10), _health(10), _love(0), _name(""), _currency(1)
 	{}
 
 // METHODS
@@ -258,6 +258,7 @@ string Player::handleAttack() const
 {
 	bool canAttack = false;
 	vector<string> attackList;
+	vector<Item*> attacks;
 	int cursorIndex = 0;
 	string input;
 	string returnValue;
@@ -270,6 +271,7 @@ string Player::handleAttack() const
 		if (canAttack)
 		{
 			attackList.push_back(_items[i]->getItemName());
+			attacks.push_back(_items[i]);
 		}
 	}
 	system("CLS");
@@ -328,7 +330,7 @@ string Player::handleAttack() const
 		// use attack
 		else if (input == "e")
 		{
-			returnValue = _items[cursorIndex]->attack();
+			returnValue = attacks[cursorIndex]->attack();
 		}
 		displayChoicesPrint(attackList, headerText);
 	}
@@ -340,4 +342,25 @@ string Player::handleAttack() const
 void Player::addItem(Item* item)
 {
 	_items.push_back(item);
+}
+
+void Player::addCurrency(int add)
+{
+	_currency = _currency + add;
+}
+
+void Player::subtractCurrency(int sub)
+{
+	_currency = _currency - sub;
+}
+
+int Player::getCurrency() const
+{
+	return _currency;
+}
+
+string Player::getCurrencyString() const
+{
+	string currencyString = to_string(_currency);
+	return currencyString;
 }

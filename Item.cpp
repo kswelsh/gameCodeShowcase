@@ -3,32 +3,32 @@
 // PRIVATE METHODS
 
 // CONSTRUCTORS
-Item::Item(string n, bool u, bool a, int d, int p, string i)
-	:_name(n), _canUse(u), _canAttack(a), _durability(d), _power(p), _info(i)
+Item::Item(string n, bool u, bool a, int d, int p, string i, int c)
+	:_name(n), _canUse(u), _canAttack(a), _durability(d), _power(p), _info(i), _cost(c)
 	{}
 
-Sword::Sword(string n, bool u, bool a, int d, int p, string i)
-	: Item(n, u, a, d, p, i)
+Sword::Sword(string n, bool u, bool a, int d, int p, string i, int c)
+	: Item(n, u, a, d, p, i, c)
 	{}
 
-Bow::Bow(string n, bool u, bool a, int d, int p, string i)
-	: Item(n, u, a, d, p, i)
+Bow::Bow(string n, bool u, bool a, int d, int p, string i, int c)
+	: Item(n, u, a, d, p, i, c)
 	{}
 
-Wand::Wand(string n, bool u, bool a, int d, int p, string i)
-	: Item(n, u, a, d, p, i)
+Wand::Wand(string n, bool u, bool a, int d, int p, string i, int c)
+	: Item(n, u, a, d, p, i, c)
 	{}
 
-HealthPotion::HealthPotion(string n, bool u, bool a, int d, int p, string i)
-	: Item(n, u, a, d, p, i)
+HealthPotion::HealthPotion(string n, bool u, bool a, int d, int p, string i, int c)
+	: Item(n, u, a, d, p, i, c)
 	{}
 
-Book::Book(string n, bool u, bool a, int d, int p, string i)
-	: Item(n, u, a, d, p, i)
+Book::Book(string n, bool u, bool a, int d, int p, string i, int c)
+	: Item(n, u, a, d, p, i, c)
 	{}
 
-Dagger::Dagger(string n, bool u, bool a, int d, int p, string i)
-	: Item(n, u, a, d, p, i)
+Dagger::Dagger(string n, bool u, bool a, int d, int p, string i, int c)
+	: Item(n, u, a, d, p, i, c)
 	{}
 
 // METHODS
@@ -77,6 +77,17 @@ string Item::use()
 string Item::attack()
 {
 	return "Item cannot be used in an attack!";
+}
+
+int Item::getCost() const
+{
+	return _cost;
+}
+
+string Item::getCostString() const
+{
+	string costString = to_string(_cost);
+	return costString;
 }
 
 // Sword

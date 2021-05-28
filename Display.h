@@ -6,8 +6,11 @@
 #include <time.h>
 #include <Windows.h>
 #include <conio.h>
+#include <vector>
 using namespace std;
 #include "Item.h"
+
+#pragma comment(lib, "winmm.lib")
 
 // CLASS DISPLAY IS IN CHARGE OF AREA DISPLAY AND
 // TEXT DISPLAY, ANY OTHER TYPE OF DISPLAY IS
@@ -16,8 +19,13 @@ class Display
 {
 private:
 	// pre: 1st parm is text you want to display, must not be greater than 140 characters
+	//		2nd parm is if one wants to center, 3rd parm is char sleep, 4th parm is final sleep
 	// post: passed in parm is displayed in timed fashion, if greater than 140 chatacters does not display
-	void displayTimedText(const string&, const bool&, int);
+	void displayTimedText(const string&, const bool&, int, int) const;
+
+	// pre: 1st parm is vector of attack choices that one wants to print, 2nd parm is header text, 3rd parm is true for one less new line
+	// post: contents of vector are displayed
+	void displayChoicesPrint(const vector<string>&, const string&, bool) const;
 public:
 	Display() {};
 
@@ -44,6 +52,7 @@ public:
 	string displayGrasslandChunk(string, int);
 	string displayFarmChunk(string, int);
 
+	int displayAndUseShop(Item*, Item*, Item*, int);
 };
 
 #endif

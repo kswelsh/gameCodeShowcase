@@ -69,6 +69,7 @@ int main()
     Display display;
     Player player;
     Map map1;
+    int shopChoice = -1;
 
     // enemy creation
     Enemy enemy("Lesser Goblin", 1, 3, 0.00, 0.00, 0.00);
@@ -79,46 +80,46 @@ int main()
     
     // item creation
     Sword* basicSword = new Sword("Basic Sword", false, true, -1, 1, "Just a Basic Sword._Common_1-2" \
-        "_Non-Healing_Said to be the strongest sword in the land, by beginners...");
+        "_Non-Healing_Said to be the strongest sword in the land, by beginners...", 1);
     Bow* basicBow = new Bow("Basic Bow", false, true, -1, 3, "Just a Basic Bow._Common_0-3" \
-        "_Non-Healing_Your aim must be good.");
+        "_Non-Healing_Your aim must be good.", 1);
     Wand* basicWand = new Wand("Basic Wand", false, true, -1, 5, "Just a Basic Wand._Common_5-7" \
-        "_Non-Healing_Chances are you don't know how to use it.");
+        "_Non-Healing_Chances are you don't know how to use it.", 2);
     HealthPotion* lesserHealthPotion = new HealthPotion("Lesser Health Potion", true, false, 1, 1, "Just a Lesser Health Potion._Common_Non-Damaging_" \
-        "1_Really doesn't do all too much.");
-    Book* lovePoem = new Book("Love Poem", true, false, 1, 1, "Just a love poem._Common_Non-Damaging_1_I love you.");
+        "1_Really doesn't do all too much.", 2);
+    Book* lovePoem = new Book("Love Poem", true, false, 1, 1, "Just a love poem._Common_Non-Damaging_1_I love you.", 2);
     player.addItem(basicSword);
     player.addItem(basicBow);
     player.addItem(basicWand);
     player.addItem(lovePoem);
     player.addItem(lesserHealthPotion);
 
+    PlaySound(TEXT("shopSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+
+    // current code for shop
+    shopChoice = display.displayAndUseShop(basicSword, basicBow, lesserHealthPotion, player.getCurrency());
+    if (shopChoice == 0)
+    {
+        player.subtractCurrency(basicSword->getCost());
+        player.addItem(basicSword);
+    }
+    else if (shopChoice == 1)
+    {
+        player.subtractCurrency(basicBow->getCost());
+        player.addItem(basicBow);
+    }
+    else if (shopChoice == 2)
+    {
+        player.subtractCurrency(lesserHealthPotion->getCost());
+        player.addItem(lesserHealthPotion);
+    }
+
     // music and sound
     PlaySound(TEXT("darkSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
     
     // current code for map movement
-    cout << map1.getZoneTypeCurrent() << endl;
-    system("pause");
     visited = map1.move();
-    cout << visited;
-    cout << map1.getZoneTypeCurrent() << endl;
-    system("pause");
     visited = map1.move();
-    cout << visited;
-    cout << map1.getZoneTypeCurrent() << endl;
-    system("pause");
-    visited = map1.move();
-    cout << visited;
-    cout << map1.getZoneTypeCurrent() << endl;
-    system("pause");
-    visited = map1.move();
-    cout << visited;
-    cout << map1.getZoneTypeCurrent() << endl;
-    system("pause");
-    visited = map1.move();
-    cout << visited;
-    cout << map1.getZoneTypeCurrent() << endl;
-    system("pause");
 
     // current code for inventory
     player.displayInventory();

@@ -1,7 +1,7 @@
 #include "Display.h"
 // PRIVATE METHODS
 
-void Display::displayTimedText(const string& usedText, const bool &wantToCenter, int finalSleep)
+void Display::displayTimedText(const string& usedText, const bool &wantToCenter, int charSleep, int finalSleep) const
 {
 	int centerCount;
 	string center = "";
@@ -29,9 +29,42 @@ void Display::displayTimedText(const string& usedText, const bool &wantToCenter,
 		for (int i = 0; i < usedText.size(); i++)
 		{
 			cout << usedText[i];
-			Sleep(45);
+			Sleep(charSleep);
 		}
 		Sleep(finalSleep);
+	}
+}
+
+void Display::displayChoicesPrint(const vector<string>& displayList, const string& headerText, bool oneLess) const
+{
+	int verticleLength;
+	int centerCount;
+
+	// center verticle
+	verticleLength = (displayList.size() * 2) - 1;
+	verticleLength = verticleLength + 3;
+	centerCount = (32 - verticleLength) / 2;
+
+	// for if user just choose item they cannot afford
+	if (oneLess)
+		centerCount--;
+
+	// print center
+	for (int i = 0; i < centerCount; i++)
+		cout << endl;
+
+	// display list
+	displayTimedText(headerText, true, 0, 0);
+	cout << "\n";
+	displayTimedText("________________________", true, 0, 0);
+	cout << "\n\n";
+	for (int i = 0; i < displayList.size(); i++)
+	{
+		displayTimedText(displayList[i], true, 0, 0);
+		if ((i + 1) != displayList.size())
+			cout << "\n\n";
+		else
+			cout << endl;
 	}
 }
 
@@ -41,10 +74,10 @@ string Display::displayTextWithChoice(const string &text, const string &question
 	string choice;
 
 	cout << "\n\n\n\n\n\n";
-	displayTimedText(text, true, 900);
+	displayTimedText(text, true, 20, 900);
 	cout << "\n\n\n\n\n\n";
 	cout << "______________________________________________________________________\n\n";
-	displayTimedText(question, true, 900);
+	displayTimedText(question, true, 20, 900);
 	choice = _getch();
 
 	return choice;
@@ -55,7 +88,7 @@ void Display::displayText(const string &text)
 	if (text.size() <= 70)
 	{
 		cout << "\n\n\n\n\n\n\n";
-		displayTimedText(text, true, 900);
+		displayTimedText(text, true, 20, 900);
 	}
 	else if (text.size() <= 140)
 	{
@@ -91,9 +124,9 @@ void Display::displayText(const string &text)
 			}
 		}
 		cout << "\n\n\n\n\n\n";
-		displayTimedText(newText1, true, 0);
+		displayTimedText(newText1, true, 20, 0);
 		cout << "\n";
-		displayTimedText(newText2, true, 1000);
+		displayTimedText(newText2, true, 20, 1000);
 	}
 }
 
@@ -507,5 +540,90 @@ string Display::displayGrasslandChunk(string seed, int sizeOfDisplay)
 string Display::displayFarmChunk(string seed, int sizeOfDisplay)
 {
 	return seed;
+}
+
+int Display::displayAndUseShop(Item* item1, Item* item2, Item* item3, int currentCoin)
+{
+	vector<Item*> items;
+	vector<string> shopList;
+	vector<int> parallelCost;
+	int cursorIndex = 0;
+	string input;
+	int choice = -1;
+	string headerText = "The Humble Shoppe";
+
+	// push item names and cost to shop list/cost list
+	items.push_back(item1);
+	items.push_back(item2);
+	items.push_back(item3);
+	for (int i = 0; i < items.size(); i++)
+	{
+		shopList.push_back(items[i]->getItemName());
+		shopList[i].append(" (");
+		shopList[i].append(items[i]->getCostString());
+		shopList[i].append(" Coin)");
+		parallelCost.push_back(items[i]->getCost());
+	}
+	shopList[0].append(" -");
+
+	// display shop
+	displayChoicesPrint(shopList, headerText, false);
+
+	// accept keyboard input to make choice
+	while ((input != "e") && (input != "q"))
+	{
+		input = "";
+		input = _getch();
+		system("CLS");
+
+		// move down
+		if (input == "s")
+		{
+			if ((cursorIndex + 1) < shopList.size())
+			{
+				shopList[cursorIndex].pop_back();
+				shopList[cursorIndex].pop_back();
+				cursorIndex++;
+				shopList[cursorIndex].append(" -");
+			}
+		}
+		// move up
+		else if (input == "w")
+		{
+			if ((cursorIndex - 1) >= 0)
+			{
+				shopList[cursorIndex].pop_back();
+				shopList[cursorIndex].pop_back();
+				cursorIndex--;
+				shopList[cursorIndex].append(" -");
+			}
+		}
+		// buy item
+		else if (input == "e")
+		{
+			if (currentCoin < items[cursorIndex]->getCost())
+			{
+				cout << endl;
+				displayTimedText("You cannot afford this item!", true, 0, 0);
+				input = ".";
+			}
+			else
+			{
+				choice = cursorIndex;
+			}
+		}
+		else if (input == "q")
+		{
+			choice = -1;
+		}
+
+		if (input == ".")
+			displayChoicesPrint(shopList, headerText, true);
+		else
+			displayChoicesPrint(shopList, headerText, false);
+	}
+
+	system("CLS");
+	return choice;
 }
 

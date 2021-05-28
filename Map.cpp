@@ -218,6 +218,7 @@ bool Map::move()
 			{
 				if ((_currentRow - 1) < 0)
 				{
+					system("CLS");
 					displayText("Cannot move there! Position out of bounds!");
 					userConfirm = ".";
 				}
@@ -236,6 +237,7 @@ bool Map::move()
 			{
 				if ((_currentRow + 1) >= 4)
 				{
+					system("CLS");
 					displayText("Cannot move there! Position out of bounds!");
 					userConfirm = ".";
 				}
@@ -254,6 +256,7 @@ bool Map::move()
 			{
 				if ((_currentColumn + 1) >= 4)
 				{
+					system("CLS");
 					displayText("Cannot move there! Position out of bounds!");
 					userConfirm = ".";
 				}
@@ -272,6 +275,7 @@ bool Map::move()
 			{
 				if ((_currentColumn - 1) < 0)
 				{
+					system("CLS");
 					displayText("Cannot move there! Position out of bounds!");
 					userConfirm = ".";
 				}

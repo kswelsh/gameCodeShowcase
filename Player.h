@@ -18,6 +18,7 @@ private:
 	int _love;
 	string _name;
 	vector<Item*> _items;
+	int _currency;
 
 	// pre: 1st parm is amount one wants added
 	// post: displays heal, _health changes accordingly
@@ -27,7 +28,7 @@ private:
 	// post: displays love, _love changes accordingly
 	void addLove(int);
 
-	// pre: 1st parm is vector of attack choices that one wants to print
+	// pre: 1st parm is vector of attack choices that one wants to print, 2nd parm is header text
 	// post: contents of vector are displayed
 	void displayChoicesPrint(const vector<string>&, const string&) const;
 
@@ -63,6 +64,14 @@ public:
 	// pre: 1st parm is pointer to item one would like to add to vector of items a player holds
 	// post: item pointer is added to vector
 	void addItem(Item*);
+
+	// pre: 1st parm is amount one wants to add or subtract
+	// post: adds or subtracts amount
+	void addCurrency(int);
+	void subtractCurrency(int);
+
+	int getCurrency() const;
+	string getCurrencyString() const;
 };
 
 #endif
