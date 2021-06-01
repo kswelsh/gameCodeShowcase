@@ -55,6 +55,62 @@ void handlePlayerAttack(string &a, int &v, string &t, string &f, Enemy &e)
     f.append(e.getEnemyName() + "!");
 }
 
+void initialStory(Display& d, bool& listenStory)
+{
+    string input;
+    string seed = "0";
+
+    // ask user choice
+    d.displayText("Would you like to listen to the story?");
+    cout << "\n\n\n\n\n\n\n\n\n\n";
+    d.displayText("Press 'e' to listen, any other key to skip.");
+    input = _getch();
+    refreshConsole();
+
+    // set user choice
+    if (input == "e")
+        listenStory = true;
+    else
+        listenStory = false;
+    
+    // play story if user wants story
+    if (listenStory)
+    {
+        PlaySound(TEXT("intro.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+        seed = d.displayForestChunk(seed, 7);
+        d.displayText("*Ring ring*... *ring ring*...");
+        refreshConsole();
+
+        seed = d.displayForestChunk(seed, 7);
+        d.displayText("Hello, can you hear me?");
+        refreshConsole();
+
+        seed = d.displayForestChunk(seed, 7);
+        d.displayText("Hey, yeah, it's me... I need you to come to me.");
+        refreshConsole();
+
+        seed = d.displayForestChunk(seed, 7);
+        d.displayText("No, I can't pick you up, I sent you the directions on your phone.");
+        refreshConsole();
+
+        seed = d.displayForestChunk(seed, 7);
+        d.displayText("What do you mean you're a long ways out?");
+        refreshConsole();
+
+        seed = d.displayForestChunk(seed, 7);
+        d.displayText("Well that doesn't matter, get here fast, there is a girl who wants you here.");
+        refreshConsole();
+
+        seed = d.displayForestChunk(seed, 7);
+        d.displayText("Really, the first thing you ask is her name? Names don't matter anyway.");
+        refreshConsole();
+
+        seed = d.displayForestChunk(seed, 7);
+        d.displayText("Just follow the path, I'll call you in a bit.");
+        refreshConsole();
+    }
+}
+
 int main()
 {
     gameSetup();
@@ -70,6 +126,9 @@ int main()
     Player player;
     Map map1;
     int shopChoice = -1;
+    bool listenStory = false;
+
+    initialStory(display, listenStory);
 
     // enemy creation
     Enemy enemy("Lesser Goblin", 1, 3, 0.00, 0.00, 0.00);

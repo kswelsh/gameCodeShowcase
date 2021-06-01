@@ -28,6 +28,10 @@ private:
 	// post: displays love, _love changes accordingly
 	void addLove(int);
 
+	// pre: 1st parm is amount one wants added
+	// post: displays maxHealth, _maxHealth changes accordingly
+	void addMaxHealth(int a);
+
 	// pre: 1st parm is vector of attack choices that one wants to print, 2nd parm is header text
 	// post: contents of vector are displayed
 	void displayChoicesPrint(const vector<string>&, const string&) const;
@@ -50,6 +54,7 @@ private:
 	void seperate(bool&, vector<string>&, vector<int>&, bool&, int&);
 public:
 	Player();
+	~Player();
 
 	// pre: none
 	// post: inventory is displayed with user choices and interface for user to make choices

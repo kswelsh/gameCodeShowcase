@@ -31,6 +31,11 @@ Dagger::Dagger(string n, bool u, bool a, int d, int p, string i, int c)
 	: Item(n, u, a, d, p, i, c)
 	{}
 
+ArmorPotion::ArmorPotion(string n, bool u, bool a, int d, int p, string i, int c)
+	: Item(n, u, a, d, p, i, c)
+	{}
+
+
 // METHODS
 // Base Class
 string Item::getItemName() const
@@ -431,6 +436,11 @@ string Book::use()
 string HealthPotion::use()
 {
 	return ("heal_" + to_string(getPower()));
+}
+
+string ArmorPotion::use()
+{
+	return ("maxHealth_" + to_string(getPower()));
 }
 
 // Dagger

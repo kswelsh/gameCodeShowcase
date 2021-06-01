@@ -141,4 +141,18 @@ public:
 	// Used to heal
 };
 
+class ArmorPotion : public Item
+{
+public:
+	// pre: 1st parm is item name, 2nd parm is if item can be "used"
+	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
+	//		5th parm is _info
+	// post: item is created
+	ArmorPotion(string, bool, bool, int, int, string, int);
+	virtual ~ArmorPotion() {};
+	virtual string use();
+
+	// Used to heal
+};
+
 #endif

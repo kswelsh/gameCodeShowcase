@@ -35,7 +35,7 @@ void Display::displayTimedText(const string& usedText, const bool &wantToCenter,
 	}
 }
 
-void Display::displayChoicesPrint(const vector<string>& displayList, const string& headerText, bool oneLess) const
+void Display::displayChoicesPrint(const vector<string>& displayList, const string& headerText, bool oneLess, int &currentCoin) const
 {
 	int verticleLength;
 	int centerCount;
@@ -66,6 +66,11 @@ void Display::displayChoicesPrint(const vector<string>& displayList, const strin
 		else
 			cout << endl;
 	}
+
+	// display coin
+	cout << "\n\n\n\n\n";
+	displayTimedText("Coin: " + to_string(currentCoin), true, 0, 0);
+	cout << endl;
 }
 
 // METHODS
@@ -88,7 +93,7 @@ void Display::displayText(const string &text)
 	if (text.size() <= 70)
 	{
 		cout << "\n\n\n\n\n\n\n";
-		displayTimedText(text, true, 20, 900);
+		displayTimedText(text, true, 20, 1200);
 	}
 	else if (text.size() <= 140)
 	{
@@ -567,7 +572,7 @@ int Display::displayAndUseShop(Item* item1, Item* item2, Item* item3, int curren
 	shopList[0].append(" -");
 
 	// display shop
-	displayChoicesPrint(shopList, headerText, false);
+	displayChoicesPrint(shopList, headerText, false, currentCoin);
 
 	// accept keyboard input to make choice
 	while ((input != "e") && (input != "q"))
@@ -618,9 +623,9 @@ int Display::displayAndUseShop(Item* item1, Item* item2, Item* item3, int curren
 		}
 
 		if (input == ".")
-			displayChoicesPrint(shopList, headerText, true);
+			displayChoicesPrint(shopList, headerText, true, currentCoin);
 		else
-			displayChoicesPrint(shopList, headerText, false);
+			displayChoicesPrint(shopList, headerText, false, currentCoin);
 	}
 
 	system("CLS");

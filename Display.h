@@ -25,7 +25,7 @@ private:
 
 	// pre: 1st parm is vector of attack choices that one wants to print, 2nd parm is header text, 3rd parm is true for one less new line
 	// post: contents of vector are displayed
-	void displayChoicesPrint(const vector<string>&, const string&, bool) const;
+	void displayChoicesPrint(const vector<string>&, const string&, bool, int&) const;
 public:
 	Display() {};
 

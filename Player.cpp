@@ -122,6 +122,14 @@ void Player::addHealth(int a)
 	Sleep(1200);
 }
 
+void Player::addMaxHealth(int a)
+{
+	_maxHealth = _maxHealth + a;
+	system("CLS");
+	displayText("Your max health went up by " + to_string(a) + " and is now " + to_string(_maxHealth) + "!", true);
+	Sleep(1200);
+}
+
 void Player::seperate(bool &value, vector<string> &inventory, vector<int> &useOrAttack, bool &empty, int &cursorIndex)
 {
 	value = false;
@@ -157,6 +165,14 @@ void Player::seperate(bool &value, vector<string> &inventory, vector<int> &useOr
 Player::Player()
 	:_maxHealth(10), _health(10), _love(0), _name(""), _currency(1)
 	{}
+
+Player::~Player()
+{
+	for (int i = 0; i < _items.size(); i++)
+	{
+		delete _items[i];
+	}
+}
 
 // METHODS
 void Player::displayInventory()
@@ -218,6 +234,8 @@ void Player::displayInventory()
 					addLove(stoi(amount));
 				else if (type == "heal")
 					addHealth(stoi(amount));
+				else if (type == "maxHealth")
+					addMaxHealth(stoi(amount));
 
 				bool destroy = _items[cursorIndex]->checkAndDecDur();
 				if (destroy)
