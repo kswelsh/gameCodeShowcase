@@ -62,7 +62,7 @@ class Sword : public Item
 public:
 	// pre: 1st parm is item name, 2nd parm is if item can be "used"
 	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
-	//		5th parm is _info
+	//		5th parm is _info, 6th parm is item cost
 	// post: item is created
 	Sword(string, bool, bool, int, int, string, int);
 	virtual ~Sword() {};
@@ -76,7 +76,7 @@ class Bow : public Item
 public:
 	// pre: 1st parm is item name, 2nd parm is if item can be "used"
 	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
-	//		5th parm is _info
+	//		5th parm is item power, 6th parm is item info, 7th parm is item cost
 	// post: item is created
 	Bow(string, bool, bool, int, int, string, int);
 	virtual ~Bow() {};
@@ -90,7 +90,7 @@ class Wand : public Item
 public:
 	// pre: 1st parm is item name, 2nd parm is if item can be "used"
 	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
-	//		5th parm is _info
+	//		5th parm is item power, 6th parm is item info, 7th parm is item cost
 	// post: item is created
 	Wand(string, bool, bool, int, int, string, int);
 	virtual ~Wand() {};
@@ -104,7 +104,7 @@ class Dagger : public Item
 public:
 	// pre: 1st parm is item name, 2nd parm is if item can be "used"
 	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
-	//		5th parm is _info
+	//		5th parm is item power, 6th parm is item info, 7th parm is item cost
 	// post: item is created
 	Dagger(string, bool, bool, int, int, string, int);
 	virtual ~Dagger() {};
@@ -118,7 +118,7 @@ class Book : public Item
 public:
 	// pre: 1st parm is item name, 2nd parm is if item can be "used"
 	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
-	//		5th parm is _info
+	//		5th parm is item power, 6th parm is item info, 7th parm is item cost
 	// post: item is created
 	Book(string, bool, bool, int, int, string, int);
 	virtual ~Book() {};
@@ -132,7 +132,7 @@ class HealthPotion : public Item
 public:
 	// pre: 1st parm is item name, 2nd parm is if item can be "used"
 	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
-	//		5th parm is _info
+	//		5th parm is item power, 6th parm is item info, 7th parm is item cost
 	// post: item is created
 	HealthPotion(string, bool, bool, int, int, string, int);
 	virtual ~HealthPotion() {};
@@ -146,13 +146,13 @@ class ArmorPotion : public Item
 public:
 	// pre: 1st parm is item name, 2nd parm is if item can be "used"
 	//		3rd parm is if item can "attack", 4th parm is item durability, set to -1 if cannot be destroyed
-	//		5th parm is _info
+	//		5th parm is item power, 6th parm is item info, 7th parm is item cost
 	// post: item is created
 	ArmorPotion(string, bool, bool, int, int, string, int);
 	virtual ~ArmorPotion() {};
 	virtual string use();
 
-	// Used to heal
+	// Used to increase max health
 };
 
 #endif

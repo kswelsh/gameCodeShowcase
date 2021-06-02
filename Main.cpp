@@ -55,7 +55,85 @@ void handlePlayerAttack(string &a, int &v, string &t, string &f, Enemy &e)
     f.append(e.getEnemyName() + "!");
 }
 
-void initialStory(Display& d, bool& listenStory)
+void fillZoneOneItems(vector<Item*> &zoneOneItems, int itemVectorSize)
+{
+    for (int i = 0; i < itemVectorSize; i++)
+    {
+        int randomItem = rand() % 12;
+
+        if (randomItem == 0)
+        {
+            Sword* basicSword = new Sword("Basic Sword", false, true, -1, 1, "Just a basic sword._Common_1" \
+                "_Non-Healing_At least it is trustworthy.", 1);
+            zoneOneItems.push_back(basicSword);
+        }
+        else if (randomItem == 1)
+        {
+            Bow* basicBow = new Bow("Basic Bow", false, true, -1, 2, "Just a basic bow._Common_0-3" \
+                "_Non-Healing_You'll need good aim to make this bow work.", 2);
+            zoneOneItems.push_back(basicBow);
+        }
+        else if (randomItem == 2)
+        {
+            Wand* basicWand = new Wand("Basic Wand", false, true, -1, 1, "Just a basic wand._Common_0-5" \
+                "_Non-Healing_Chances are you don't know how to use it.", 3);
+            zoneOneItems.push_back(basicWand);
+        }
+        else if (randomItem == 3)
+        {
+            HealthPotion* randomHeal = new HealthPotion("Random Healing Mixture", true, false, 1, 1, "Just a mixture of items that may heal you._Common_Non-Damaging_" \
+                "1_Could give you a little boost.", 1);
+            zoneOneItems.push_back(randomHeal);
+        }
+        else if (randomItem == 4)
+        {
+            Book* lovePoem = new Book("Sonnet 116", true, false, 1, 1, "Could make you feel a bit better._Common_Non-Damaging_1_A classic.", 2);
+            zoneOneItems.push_back(lovePoem);
+        }
+        else if (randomItem == 5)
+        {
+            ArmorPotion* beerCan = new ArmorPotion("Can of Beer", true, false, 1, 1, "Could make you stronger._Common_Non-Damaging_Non-Healing_" \
+                "A nice cold can of PBR", 3);
+            zoneOneItems.push_back(beerCan);
+        }
+        else if (randomItem == 6)
+        {
+            Dagger* basicDagger = new Dagger("Basic Dagger", false, true, -1, 2, "Just a basic dagger._Common_Non-Damaging_Non-Healing_Consistent.", 2);
+            zoneOneItems.push_back(basicDagger);
+        }
+        else if (randomItem == 7)
+        {
+            Sword* basicSword = new Sword("Fencing Sword", false, true, -1, 2, "Not good, but better than a basic sword._Common_1-2" \
+                "_Non-Healing_Pointy.", 2);
+            zoneOneItems.push_back(basicSword);
+        }
+        else if (randomItem == 8)
+        {
+            Bow* basicBow = new Bow("Cedarwood Bow", false, true, -1, 3, "Just a little more consistent._Uncommon_0-3" \
+                "_Non-Healing_Has a nice clear coat on it.", 3);
+            zoneOneItems.push_back(basicBow);
+        }
+        else if (randomItem == 9)
+        {
+            HealthPotion* lesserHealthPotion = new HealthPotion("Lesser Health Potion", true, false, 1, 2, "Heals a bit more._Common_Non-Damaging_" \
+                "2_Has a funny taste.", 2);
+            zoneOneItems.push_back(lesserHealthPotion);
+        }
+        else if (randomItem == 10)
+        {
+            HealthPotion* healthPotion = new HealthPotion("Health Potion", true, false, 1, 3, "Heals pretty well._Uncommon_Non-Damaging_" \
+                "1_Tastes a bit like strawberries.", 3);
+            zoneOneItems.push_back(healthPotion);
+        }
+        else
+        {
+            Dagger* vinniesDagger = new Dagger("Vinnie's Dagger", false, true, -1, 3, "Pretty consistent._Rare_2-4_Non_Healing_Used to be in the Sewers.", 6);
+            zoneOneItems.push_back(vinniesDagger);
+        }
+    }
+}
+
+void initialStory(Display &d, bool &listenStory)
 {
     string input;
     string seed = "0";
@@ -116,19 +194,29 @@ int main()
     gameSetup();
 
     // initilization
+    Display* display = new Display();
+    Player* player = new Player();
+    Map* map1 = new Map();
+
     string playerAttack;
-    int attackValue = 0;
     string attackType;
     string attackText;
-    bool visited = false;
     string seed = "";
-    Display display;
-    Player player;
-    Map map1;
+
+    int attackValue = 0;
     int shopChoice = -1;
+    int itemVectorSize = 20;
+    bool visited = false;
     bool listenStory = false;
 
-    initialStory(display, listenStory);
+    vector<Item*> zoneOneItems;
+    vector<Item*> zoneTwoItems;
+    vector<Item*> zoneThreeItems;
+    vector<Item*> zoneFourItems;
+    vector<Item*> zoneFiveItems;
+
+    // start game
+    initialStory(*display, listenStory);
 
     // enemy creation
     Enemy enemy("Lesser Goblin", 1, 3, 0.00, 0.00, 0.00);
@@ -147,86 +235,86 @@ int main()
     HealthPotion* lesserHealthPotion = new HealthPotion("Lesser Health Potion", true, false, 1, 1, "Just a Lesser Health Potion._Common_Non-Damaging_" \
         "1_Really doesn't do all too much.", 2);
     Book* lovePoem = new Book("Love Poem", true, false, 1, 1, "Just a love poem._Common_Non-Damaging_1_I love you.", 2);
-    player.addItem(basicSword);
-    player.addItem(basicBow);
-    player.addItem(basicWand);
-    player.addItem(lovePoem);
-    player.addItem(lesserHealthPotion);
+    player->addItem(basicSword);
+    player->addItem(basicBow);
+    player->addItem(basicWand);
+    player->addItem(lovePoem);
+    player->addItem(lesserHealthPotion);
 
     PlaySound(TEXT("shopSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 
     // current code for shop
-    shopChoice = display.displayAndUseShop(basicSword, basicBow, lesserHealthPotion, player.getCurrency());
+    shopChoice = display->displayAndUseShop(basicSword, basicBow, lesserHealthPotion, player->getCurrency());
     if (shopChoice == 0)
     {
-        player.subtractCurrency(basicSword->getCost());
-        player.addItem(basicSword);
+        player->subtractCurrency(basicSword->getCost());
+        player->addItem(basicSword);
     }
     else if (shopChoice == 1)
     {
-        player.subtractCurrency(basicBow->getCost());
-        player.addItem(basicBow);
+        player->subtractCurrency(basicBow->getCost());
+        player->addItem(basicBow);
     }
     else if (shopChoice == 2)
     {
-        player.subtractCurrency(lesserHealthPotion->getCost());
-        player.addItem(lesserHealthPotion);
+        player->subtractCurrency(lesserHealthPotion->getCost());
+        player->addItem(lesserHealthPotion);
     }
 
     // music and sound
     PlaySound(TEXT("darkSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
     
     // current code for map movement
-    visited = map1.move();
-    visited = map1.move();
+    visited = map1->move();
+    visited = map1->move();
 
     // current code for inventory
-    player.displayInventory();
+    player->displayInventory();
 
     // test display
-    seed = display.displayOceanChunk(seed, 7);
+    seed = display->displayOceanChunk(seed, 7);
     refreshConsole();
 
     // music and sound
     PlaySound(TEXT("forestSoundTrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 
     // current code for display with text
-    seed = display.displayForestChunk(seed, 7);
-    display.displayText("A Lesser Goblin approaches you!");
+    seed = display->displayForestChunk(seed, 7);
+    display->displayText("A Lesser Goblin approaches you!");
     refreshConsole();
     
     // current attack code for player
-    playerAttack = player.handleAttack();
+    playerAttack = player->handleAttack();
     handlePlayerAttack(playerAttack, attackValue, attackType, attackText, enemy);
-    seed = display.displayForestChunk(seed, 7);
-    display.displayText(attackText);
+    seed = display->displayForestChunk(seed, 7);
+    display->displayText(attackText);
     refreshConsole();
-    seed = display.displayForestChunk(seed, 7);
+    seed = display->displayForestChunk(seed, 7);
     enemy.takeDamage(attackType, attackValue);
     refreshConsole();
 
     // current attack code for enemy
-    seed = display.displayForestChunk(seed, 7);
+    seed = display->displayForestChunk(seed, 7);
     enemy.attack();
     refreshConsole();
 
     // cycle attack
-    playerAttack = player.handleAttack();
+    playerAttack = player->handleAttack();
     handlePlayerAttack(playerAttack, attackValue, attackType, attackText, enemy);
-    seed = display.displayForestChunk(seed, 7);
-    display.displayText(attackText);
+    seed = display->displayForestChunk(seed, 7);
+    display->displayText(attackText);
     refreshConsole();
-    seed = display.displayForestChunk(seed, 7);
+    seed = display->displayForestChunk(seed, 7);
     enemy.takeDamage(attackType, attackValue);
     refreshConsole();
 
     // display new area
     seed = "";
-    seed = display.displayDesertChunk(seed, 7);
-    display.displayText("You arrive at a new nearby desert!");
+    seed = display->displayDesertChunk(seed, 7);
+    display->displayText("You arrive at a new nearby desert!");
     refreshConsole();
 
     // display question
-    seed = display.displayDesertChunk(seed, 7);
-    display.displayTextWithChoice("Would you like to rest for a bit?", "Click 'Y' for YES or 'N' for NO");
+    seed = display->displayDesertChunk(seed, 7);
+    display->displayTextWithChoice("Would you like to rest for a bit?", "Click 'Y' for YES or 'N' for NO");
 }
