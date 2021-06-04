@@ -52,6 +52,8 @@ public:
 	string displayGrasslandChunk(string, int);
 	string displayFarmChunk(string, int);
 
+	// pre: 1st-3rd parm are items one wants in shop, 4th parm is player current currency
+	// post: player choice (0,1,2) is returned if item is bought, corresponding to parms, -1 is returned if no item bought
 	int displayAndUseShop(Item*, Item*, Item*, int);
 };
 

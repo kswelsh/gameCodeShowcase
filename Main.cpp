@@ -55,6 +55,47 @@ void handlePlayerAttack(string &a, int &v, string &t, string &f, Enemy &e)
     f.append(e.getEnemyName() + "!");
 }
 
+// pre: 1st parm is vector one wants to get random Item* from
+// post: returns random Item*
+Item* getRandomItem(vector<Item*>& itemVector)
+{
+    int random = rand() % itemVector.size();
+    return itemVector[random];
+}
+
+// pre: 1st parm is display, 2nd parm is player, 3rd parm is item pool
+// post: if item bought, it is added to player inventory and currency is reduced
+//       otherwise nothing happens
+void handleShop(Display* d, Player* p, vector<Item*> &itemVector)
+{
+    PlaySound(TEXT("shopSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+
+    int shopChoice = -1;
+    Item* item1 = getRandomItem(itemVector);
+    Item* item2 = getRandomItem(itemVector);
+    Item* item3 = getRandomItem(itemVector);
+
+    shopChoice = d->displayAndUseShop(item1, item2, item3, p->getCurrency());
+    if (shopChoice == 0)
+    {
+        p->subtractCurrency(item1->getCost());
+        p->addItem(item1);
+    }
+    else if (shopChoice == 1)
+    {
+        p->subtractCurrency(item2->getCost());
+        p->addItem(item1);
+    }
+    else if (shopChoice == 2)
+    {
+        p->subtractCurrency(item3->getCost());
+        p->addItem(item1);
+    }
+
+}
+
+// pre: 1st parm is vector of item pointers to hold items, 2nd parm is size wanted
+// post: vector is filled with Item*'s
 void fillZoneOneItems(vector<Item*> &zoneOneItems, int itemVectorSize)
 {
     for (int i = 0; i < itemVectorSize; i++)
@@ -93,12 +134,12 @@ void fillZoneOneItems(vector<Item*> &zoneOneItems, int itemVectorSize)
         else if (randomItem == 5)
         {
             ArmorPotion* beerCan = new ArmorPotion("Can of Beer", true, false, 1, 1, "Could make you stronger._Common_Non-Damaging_Non-Healing_" \
-                "A nice cold can of PBR", 3);
+                "A nice cold can of PBR.", 3);
             zoneOneItems.push_back(beerCan);
         }
         else if (randomItem == 6)
         {
-            Dagger* basicDagger = new Dagger("Basic Dagger", false, true, -1, 2, "Just a basic dagger._Common_Non-Damaging_Non-Healing_Consistent.", 2);
+            Dagger* basicDagger = new Dagger("Basic Dagger", false, true, -1, 2, "Just a basic dagger._Common_1-2_Non-Healing_Consistent.", 2);
             zoneOneItems.push_back(basicDagger);
         }
         else if (randomItem == 7)
@@ -133,6 +174,202 @@ void fillZoneOneItems(vector<Item*> &zoneOneItems, int itemVectorSize)
     }
 }
 
+// pre: 1st parm is vector of item pointers to hold items, 2nd parm is size wanted
+// post: vector is filled with Item*'s
+void fillZoneTwoItems(vector<Item*>& zoneTwoItems, int itemVectorSize)
+{
+    for (int i = 0; i < itemVectorSize; i++)
+    {
+        int randomItem = rand() % 12;
+
+        if (randomItem == 0)
+        {
+            Sword* greatSword = new Sword("Great Sword", false, true, -1, 3, "A bit stronger than a basic sword._Common_1-3" \
+                "_Non-Healing_Four feet in length.", 2);
+            zoneTwoItems.push_back(greatSword);
+        }
+        else if (randomItem == 1)
+        {
+            Bow* greatBow = new Bow("Basic Bow", false, true, -1, 4, "A bit stronger than a basic bow._Common_0-6" \
+                "_Non-Healing_The arrows come out pretty quick.", 4);
+            zoneTwoItems.push_back(greatBow);
+        }
+        else if (randomItem == 2)
+        {
+            Wand* greaterWand = new Wand("Greater Wand", false, true, -1, 4, "A bit stronger than a basic wand._Common_0-6" \
+                "_Non-Healing_Much easier to use.", 4);
+            zoneTwoItems.push_back(greaterWand);
+        }
+        else if (randomItem == 3)
+        {
+            HealthPotion* randomHeal = new HealthPotion("Random Healing Mixture", true, false, 1, 1, "Just a mixture of items that may heal you._Common_Non-Damaging_" \
+                "1_Could give you a little boost.", 1);
+            zoneTwoItems.push_back(randomHeal);
+        }
+        else if (randomItem == 4)
+        {
+            Book* lovePoem = new Book("Sun Goes Down", true, false, 1, 1, "Could make you feel a bit better._Common_Non-Damaging_2_Really a song.", 3);
+            zoneTwoItems.push_back(lovePoem);
+        }
+        else if (randomItem == 5)
+        {
+            ArmorPotion* wine = new ArmorPotion("Bottle of Wine", true, false, 1, 2, "Could make you stronger._Common_Non-Damaging_Non-Healing_" \
+                "A decent bottle of wine.", 5);
+            zoneTwoItems.push_back(wine);
+        }
+        else if (randomItem == 6)
+        {
+            Dagger* poisenDagger = new Dagger("Poisen Dagger", false, true, -1, 3, "Just a basic dagger._Uncommon_2-4_Non-Healing_The poisen doesn't seem to work.", 4);
+            zoneTwoItems.push_back(poisenDagger);
+        }
+        else if (randomItem == 7)
+        {
+            Sword* lordsBlade = new Sword("Lords Blade", false, true, -1, 6, "Fairly strong._Uncommon_3-6" \
+                "_Non-Healing_Pointy.", 5);
+            zoneTwoItems.push_back(lordsBlade);
+        }
+        else if (randomItem == 8)
+        {
+            Bow* recurveBow = new Bow("Recurve Bow", false, true, -1, 6, "Fairly strong._Uncommon_0-9" \
+                "_Non-Healing_Made out of fine metal.", 6);
+            zoneTwoItems.push_back(recurveBow);
+        }
+        else if (randomItem == 9)
+        {
+            HealthPotion* healthElixir = new HealthPotion("Health Elixir", true, false, 1, 4, "Heals quite a bit._Rare_Non-Damaging_" \
+                "4_A taste that is hard to pin down.", 4);
+            zoneTwoItems.push_back(healthElixir);
+        }
+        else if (randomItem == 10)
+        {
+            HealthPotion* healthPotion = new HealthPotion("Health Potion", true, false, 1, 3, "Heals pretty well._Uncommon_Non-Damaging_" \
+                "1_Tastes a bit like strawberries.", 3);
+            zoneTwoItems.push_back(healthPotion);
+        }
+        else
+        {
+            int epicCheck = rand() % 2;
+
+            if (epicCheck = 0)
+            {
+                HealthPotion* medicsBlood = new HealthPotion("Medics Blood", true, false, 1, 7, "Heals a ton._Epic_Non-Damaging_" \
+                    "4_A taste that is hard to get used to.", 7);
+                zoneTwoItems.push_back(medicsBlood);
+            }
+            else
+            {
+                HealthPotion* healthElixir = new HealthPotion("Health Elixir", true, false, 1, 4, "Heals quite a bit._Rare_Non-Damaging_" \
+                    "4_A taste that is hard to pin down.", 4);
+                zoneTwoItems.push_back(healthElixir);
+            }
+        }
+    }
+}
+
+// pre: 1st parm is vector of item pointers to hold items, 2nd parm is size wanted
+// post: vector is filled with Item*'s
+void fillZoneThreeItems(vector<Item*>& zoneThreeItems, int itemVectorSize)
+{
+    for (int i = 0; i < itemVectorSize; i++)
+    {
+        int randomItem = rand() % 12;
+
+        if (randomItem == 0)
+        {
+            HealthPotion* healthElixir = new HealthPotion("Health Elixir", true, false, 1, 4, "Heals quite a bit._Rare_Non-Damaging_" \
+                "4_A taste that is hard to pin down.", 4);
+            zoneThreeItems.push_back(healthElixir);
+        }
+        else if (randomItem == 1)
+        {
+            Bow* greatBow = new Bow("Basic Bow", false, true, -1, 4, "A bit stronger than a basic bow._Common_0-6" \
+                "_Non-Healing_The arrows come out pretty quick.", 4);
+            zoneThreeItems.push_back(greatBow);
+        }
+        else if (randomItem == 2)
+        {
+            Book* lovePoem = new Book("Sonnet 116 (Revised)", true, false, 1, 5, "A much better version._Common_Non-Damaging_1_Revamp of a classic.", 5);
+            zoneThreeItems.push_back(lovePoem);
+        }
+        else if (randomItem == 3)
+        {
+            HealthPotion* randomHeal = new HealthPotion("Random Healing Mixture", true, false, 1, 1, "Just a mixture of items that may heal you._Common_Non-Damaging_" \
+                "1_Could give you a little boost.", 1);
+            zoneThreeItems.push_back(randomHeal);
+        }
+        else if (randomItem == 4)
+        {
+            Book* lovePoem = new Book("Sonnet 116", true, false, 1, 1, "Could make you feel a bit better._Common_Non-Damaging_1_A classic.", 2);
+            zoneThreeItems.push_back(lovePoem);
+        }
+        else if (randomItem == 5)
+        {
+            ArmorPotion* strengthPotion = new ArmorPotion("Strength Potion", true, false, 1, 4, "Will make you stronger._Uncommon_Non-Damaging_Non-Healing_" \
+                "Strength is needed.", 3);
+            zoneThreeItems.push_back(strengthPotion);
+        }
+        else if (randomItem == 6)
+        {
+            Dagger* roguesDagger = new Dagger("Rogues Dagger", false, true, -1, 6, "Extremely consistent._Uncommon_3-6_Non-Healing_Used by the lands best assassins.", 7);
+            zoneThreeItems.push_back(roguesDagger);
+        }
+        else if (randomItem == 7)
+        {
+            int legendaryCheck = rand() % 3;
+
+            if (legendaryCheck == 0)
+            {
+                Sword* basicSword = new Sword("Nihilirs Demise", false, true, -1, 8, "Extremely powerful._Legendary_4-8" \
+                    "_Non-Healing_Said to have slain many leaders.", 11);
+                zoneThreeItems.push_back(basicSword);
+            }
+            else
+            {
+                Sword* lordsBlade = new Sword("Lords Blade", false, true, -1, 6, "Fairly strong._Uncommon_3-6" \
+                    "_Non-Healing_Pointy.", 5);
+                zoneThreeItems.push_back(lordsBlade);
+            }
+        }
+        else if (randomItem == 8)
+        {
+            int epicCheck = rand() % 2;
+
+            if (epicCheck == 0)
+            {
+                Wand* unspokenWand = new Wand("Unspoken Wand", false, true, -1, 7, "Extremely powerful._Epic_0-11" \
+                    "_Non-Healing_Death is near.", 9);
+                zoneThreeItems.push_back(unspokenWand);
+            }
+            else
+            {
+                Bow* recurveBow = new Bow("Recurve Bow", false, true, -1, 6, "Fairly strong._Uncommon_0-9" \
+                    "_Non-Healing_Made out of fine metal.", 6);
+                zoneThreeItems.push_back(recurveBow);
+            }
+        }
+        else if (randomItem == 9)
+        {
+            HealthPotion* lesserHealthPotion = new HealthPotion("Lesser Health Potion", true, false, 1, 2, "Heals a bit more._Common_Non-Damaging_" \
+                "2_Has a funny taste.", 2);
+            zoneThreeItems.push_back(lesserHealthPotion);
+        }
+        else if (randomItem == 10)
+        {
+            HealthPotion* healthPotion = new HealthPotion("Health Potion", true, false, 1, 3, "Heals pretty well._Uncommon_Non-Damaging_" \
+                "1_Tastes a bit like strawberries.", 3);
+            zoneThreeItems.push_back(healthPotion);
+        }
+        else
+        {
+            HealthPotion* healthElixir = new HealthPotion("Health Elixir", true, false, 1, 4, "Heals quite a bit._Rare_Non-Damaging_" \
+                "4_A taste that is hard to pin down.", 4);
+            zoneThreeItems.push_back(healthElixir);
+        }
+    }
+}
+
+// pre: 1st parm is display, 2nd parm is value for story (to listen or not)
+// post: story is played based on user choice
 void initialStory(Display &d, bool &listenStory)
 {
     string input;
@@ -204,7 +441,6 @@ int main()
     string seed = "";
 
     int attackValue = 0;
-    int shopChoice = -1;
     int itemVectorSize = 20;
     bool visited = false;
     bool listenStory = false;
@@ -213,10 +449,10 @@ int main()
     vector<Item*> zoneTwoItems;
     vector<Item*> zoneThreeItems;
     vector<Item*> zoneFourItems;
-    vector<Item*> zoneFiveItems;
 
     // start game
     initialStory(*display, listenStory);
+    fillZoneOneItems(zoneOneItems, itemVectorSize);
 
     // enemy creation
     Enemy enemy("Lesser Goblin", 1, 3, 0.00, 0.00, 0.00);
@@ -225,41 +461,13 @@ int main()
     enemy.addAttack("The Lesser Goblin bites your face!", 1);
     enemy.addAttack("The Lesser Goblin attempts to bite you but misses!", 0);
     
-    // item creation
-    Sword* basicSword = new Sword("Basic Sword", false, true, -1, 1, "Just a Basic Sword._Common_1-2" \
-        "_Non-Healing_Said to be the strongest sword in the land, by beginners...", 1);
-    Bow* basicBow = new Bow("Basic Bow", false, true, -1, 3, "Just a Basic Bow._Common_0-3" \
-        "_Non-Healing_Your aim must be good.", 1);
-    Wand* basicWand = new Wand("Basic Wand", false, true, -1, 5, "Just a Basic Wand._Common_5-7" \
-        "_Non-Healing_Chances are you don't know how to use it.", 2);
-    HealthPotion* lesserHealthPotion = new HealthPotion("Lesser Health Potion", true, false, 1, 1, "Just a Lesser Health Potion._Common_Non-Damaging_" \
-        "1_Really doesn't do all too much.", 2);
-    Book* lovePoem = new Book("Love Poem", true, false, 1, 1, "Just a love poem._Common_Non-Damaging_1_I love you.", 2);
-    player->addItem(basicSword);
-    player->addItem(basicBow);
-    player->addItem(basicWand);
-    player->addItem(lovePoem);
-    player->addItem(lesserHealthPotion);
+    player->addItem(getRandomItem(zoneOneItems));
+    player->addItem(getRandomItem(zoneOneItems));
+    player->addItem(getRandomItem(zoneOneItems));
+    player->addItem(getRandomItem(zoneOneItems));
+    player->addItem(getRandomItem(zoneOneItems));
 
-    PlaySound(TEXT("shopSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
-
-    // current code for shop
-    shopChoice = display->displayAndUseShop(basicSword, basicBow, lesserHealthPotion, player->getCurrency());
-    if (shopChoice == 0)
-    {
-        player->subtractCurrency(basicSword->getCost());
-        player->addItem(basicSword);
-    }
-    else if (shopChoice == 1)
-    {
-        player->subtractCurrency(basicBow->getCost());
-        player->addItem(basicBow);
-    }
-    else if (shopChoice == 2)
-    {
-        player->subtractCurrency(lesserHealthPotion->getCost());
-        player->addItem(lesserHealthPotion);
-    }
+    handleShop(display, player, zoneOneItems);
 
     // music and sound
     PlaySound(TEXT("darkSoundtrack.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
@@ -317,4 +525,12 @@ int main()
     // display question
     seed = display->displayDesertChunk(seed, 7);
     display->displayTextWithChoice("Would you like to rest for a bit?", "Click 'Y' for YES or 'N' for NO");
+
+    for (int i = 0; i < zoneOneItems.size(); i++)
+    {
+        delete zoneOneItems[i];
+        delete zoneTwoItems[i];
+        delete zoneThreeItems[i];
+        delete zoneFourItems[i];
+    }
 }
