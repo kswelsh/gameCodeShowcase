@@ -10,7 +10,7 @@ Many C++ (and programming) concepts are shown throughout this project, including
 -Pointers
 -OOP Design
 -Multi-file Programs (Header and .CPP Files)
--Arrays of Arrays
+-Multidimensional Arrays
 -Effective Documentation
 -Inheritance (Inheritance Chains)
 
