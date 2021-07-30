@@ -1,4 +1,4 @@
-# summerProject
+# gameCodeShowcase
 
 The purpose of this project is to showcase how I code in a project that is not a simple small project. The easiest way to showcase my coding ability was through creating
 the framework for a story based video game. I would like to note that this game is not anywhere near done or balanced, it is simply for one to see some of my code
