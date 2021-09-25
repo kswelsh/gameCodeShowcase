@@ -1,29 +1,21 @@
-# gameCodeShowcase
+<h1 align="center">Coding Showcase Through Games</h1>
+<p align="center">A Minor Unfinished Game to Showcase C++ Skills</p>
 
-The purpose of this project is to showcase how I code in a project that is not a simple small project. The easiest way to showcase my coding ability was through creating
-the framework for a story based video game. I would like to note that this game is not anywhere near done or balanced, it is simply for one to see some of my code
-in which I solve various issues.
+## Features
+:computer: Vectors <br />
+:computer: Arrays <br />
+:computer: Pointers <br />
+:computer: OOP Design <br />
+:computer: Header and .CPP Files <br />
+:computer: Multidimensional Arrays <br />
+:computer: Effective Documentation <br />
+:computer: Inheritance <br />
 
-Many C++ (and programming) concepts are shown throughout this project, including:
--Vectors
--Arrays
--Pointers
--OOP Design
--Multi-file Programs (Header and .CPP Files)
--Multidimensional Arrays
--Effective Documentation
--Inheritance (Inheritance Chains)
+## Purpose
+The purpose of this project is to showcase my skills, at the time, in C++ and programming.
+While I believe that I will learn more and become more expierenced at programming, this is a good
+current showcase of what I have to offer. All files are my own creation.
 
-I would like to note that this project doesn't include all I know, and surely won't include what I learn in my Senior year of college.
-Other topics will be showcased in either other projects or through assesments of some sort in the future.
-
-As another note, I do understand that this project does include some issues, mainly that it only will work on windows given specific functions used.
-I understand this is an issue, however these features are only used to make the game feel more 'game-like' and would never be included in
-functional software in most cases.
-
-Hopefully this program showcases some of my abilities at the current date. 
-
-Thank you for reading.
-
-Kyle Welsh
-7/29/2021
+## Note
+Because of how I coded this program, it will only work on windows. I understand
+this is not the best design, but to showcase what I have to offer it will do for now.
